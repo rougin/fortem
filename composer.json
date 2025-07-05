@@ -1,0 +1,42 @@
+{
+  "name": "rougin/fortem",
+  "description": "Simple form templates in PHP.",
+  "homepage": "https://github.com/rougin/fortem",
+  "license": "MIT",
+  "authors":
+  [
+    {
+      "email": "rougingutib@gmail.com",
+      "name": "Rougin Gutib"
+    }
+  ],
+  "require":
+  {
+    "php": ">=5.3.0",
+    "rougin/slytherin": "~0.9",
+    "staticka/staticka": "~0.4"
+  },
+  "require-dev":
+  {
+    "phpunit/phpunit": "~4.2|~5.7|~6.0|~7.0|~8.0|~9.0",
+    "sanmai/phpunit-legacy-adapter": "~6.1|~8.0"
+  },
+  "autoload":
+  {
+    "psr-4":
+    {
+      "Rougin\\Fortem\\": "src"
+    }
+  },
+  "autoload-dev":
+  {
+    "psr-4":
+    {
+      "Rougin\\Fortem\\": "tests"
+    }
+  },
+  "scripts":
+  {
+    "test": "phpunit"
+  }
+}
