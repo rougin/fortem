@@ -31,6 +31,10 @@ $form = new FormHelper;
 To create a `<label>` element, the `label` method is used:
 
 ``` php
+<?php
+
+// ...
+
 echo $form->label('Name');
 ```
 
@@ -41,6 +45,10 @@ echo $form->label('Name');
 The `class` attribute can be specified in its second argument:
 
 ``` php
+<?php
+
+// ...
+
 echo $form->label('Name', 'form-label');
 ```
 
@@ -51,6 +59,10 @@ echo $form->label('Name', 'form-label');
 A label can also be marked as required, which adds a red asterisk:
 
 ``` php
+<?php
+
+// ...
+
 echo $form->label('Name')->asRequired();
 ```
 
@@ -63,6 +75,10 @@ echo $form->label('Name')->asRequired();
 To create an `<input>` element, the `input` method is used. By default, it creates a `text` input:
 
 ``` php
+<?php
+
+// ...
+
 echo $form->input('name');
 ```
 
@@ -73,6 +89,10 @@ echo $form->input('name');
 Same from `label`, its second argument is for the `class` attribute:
 
 ``` php
+<?php
+
+// ...
+
 echo $form->input('name', 'form-control');
 ```
 
@@ -83,6 +103,10 @@ echo $form->input('name', 'form-control');
 The input type can be changed using the `withType` method or the convenient `asEmail` and `asNumber` methods:
 
 ``` php
+<?php
+
+// ...
+
 echo $form->input('email')->asEmail();
 ```
 
@@ -91,6 +115,10 @@ echo $form->input('email')->asEmail();
 ```
 
 ``` php
+<?php
+
+// ...
+
 echo $form->input('age')->asNumber();
 ```
 
@@ -103,6 +131,10 @@ echo $form->input('age')->asNumber();
 To create a `<button>` element, the `button` method is used:
 
 ``` php
+<?php
+
+// ...
+
 echo $form->button('Submit');
 ```
 
@@ -113,6 +145,10 @@ echo $form->button('Submit');
 Use the second argument for specifying its `class` attribute:
 
 ``` php
+<?php
+
+// ...
+
 echo $form->button('Submit', 'btn btn-primary');
 ```
 
@@ -123,6 +159,10 @@ echo $form->button('Submit', 'btn btn-primary');
 The button type can be changed using the `withType` method:
 
 ``` php
+<?php
+
+// ...
+
 echo $form->button('Submit')->withType('submit');
 ```
 
@@ -135,6 +175,10 @@ echo $form->button('Submit')->withType('submit');
 To create a `<select>` element, the `select` method is used. An array of items can be passed to populate the options:
 
 ``` php
+<?php
+
+// ...
+
 $items = array('Male', 'Female');
 
 echo $form->select('gender', $items);
@@ -170,6 +214,10 @@ echo $form->select('gender', $items);
 The `error` method is used to create a placeholder for validation error messages:
 
 ``` php
+<?php
+
+// ...
+
 echo $form->error('error.name');
 ```
 
@@ -189,6 +237,10 @@ echo $form->error('error.name');
 The `asModel` method adds the `x-model` attribute to an input or select element, binding its value to its variable:
 
 ``` php
+<?php
+
+// ...
+
 echo $form->input('name')->asModel();
 ```
 
@@ -197,6 +249,10 @@ echo $form->input('name')->asModel();
 ```
 
 ``` php
+<?php
+
+// ...
+
 echo $form->select('gender', $items)->asModel();
 ```
 
@@ -207,6 +263,10 @@ echo $form->select('gender', $items)->asModel();
 The `disablesOn` method adds the `:disabled` attribute, allowing an element to be disabled based on its variable:
 
 ``` php
+<?php
+
+// ...
+
 echo $form->input('name')->disablesOn('loading');
 ```
 
@@ -217,6 +277,10 @@ echo $form->input('name')->disablesOn('loading');
 The `onClick` method adds the `@click` attribute to a button, executing its function on click:
 
 ``` php
+<?php
+
+// ...
+
 echo $form->button('Submit')->onClick('submitForm');
 ```
 
@@ -229,6 +293,10 @@ echo $form->button('Submit')->onClick('submitForm');
 The `script` method helps create a JavaScript object from PHP. This is useful for initializing data for `alpinejs`:
 
 ``` php
+<?php
+
+// ...
+
 echo $form->script('data')
     ->with('name', 'John Doe')
     ->with('age', 30)
