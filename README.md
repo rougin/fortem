@@ -230,7 +230,7 @@ echo $form->error('error.name');
 > [!NOTE]
 > This is only works when integrated in `alpinejs`.
 
-### Integration to `alpinejs` 
+### Integration to `alpinejs`
 
 `Fortem` provides several methods for seamless integration with [alpinejs](https://alpinejs.dev/).
 
