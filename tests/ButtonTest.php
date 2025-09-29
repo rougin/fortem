@@ -2,59 +2,72 @@
 
 namespace Rougin\Fortem;
 
+/**
+ * @package Fortem
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
+ */
 class ButtonTest extends Testcase
 {
     /**
-     * Tests Button->button().
-     *
      * @return void
      */
-    public function testButtonCanBeCreated()
+    public function test_button_can_be_created()
     {
-        $expected = '<button type="button">Submit</button>';
-        $result = (new Button('Submit'))->__toString();
+        $expect = '<button type="button">Submit</button>';
 
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * Tests Button->button() with a class.
-     *
-     * @return void
-     */
-    public function testButtonWithClass()
-    {
-        $expected = '<button type="button" class="btn btn-primary">Submit</button>';
         $button = new Button('Submit');
+
+        $actual = $button->__toString();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_button_with_class()
+    {
+        $expect = '<button type="button" class="btn btn-primary">Submit</button>';
+
+        $button = new Button('Submit');
+
         $button->withClass('btn btn-primary');
-        $result = $button;
 
-        $this->assertEquals($expected, $result);
+        $actual = $button->__toString();
+
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests Button->withType().
-     *
      * @return void
      */
-    public function testButtonWithType()
+    public function test_button_with_type()
     {
-        $expected = '<button type="submit">Submit</button>';
-        $result = (new Button('Submit'))->withType('submit')->__toString();
+        $expect = '<button type="submit">Submit</button>';
 
-        $this->assertEquals($expected, $result);
+        $button = new Button('Submit');
+
+        $button->withType('submit');
+
+        $actual = $button->__toString();
+
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests Button->onClick().
-     *
      * @return void
      */
-    public function testButtonOnClick()
+    public function test_button_on_click()
     {
-        $expected = '<button type="button" @click="submitForm">Submit</button>';
-        $result = (new Button('Submit'))->onClick('submitForm')->__toString();
+        $expect = '<button type="button" @click="submitForm">Submit</button>';
 
-        $this->assertEquals($expected, $result);
+        $button = new Button('Submit');
+
+        $button->onClick('submitForm');
+
+        $actual = $button->__toString();
+
+        $this->assertEquals($expect, $actual);
     }
 }

@@ -2,85 +2,110 @@
 
 namespace Rougin\Fortem;
 
+/**
+ * @package Fortem
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
+ */
 class ElementTest extends Testcase
 {
     /**
-     * Tests Element->disablesOn().
-     *
      * @return void
      */
-    public function testDisablesOn()
+    public function test_disables_on()
     {
         $element = new Element;
+
         $element->disablesOn('loading');
 
         $reflection = new \ReflectionClass($element);
         $property = $reflection->getProperty('attrs');
+
         $property->setAccessible(true);
+
         /** @var array<string, mixed> $attrs */
         $attrs = $property->getValue($element);
 
+        $expect = 'loading';
+
+        $actual = $attrs[':disabled'];
+
         $this->assertArrayHasKey(':disabled', $attrs);
-        $this->assertEquals('loading', $attrs[':disabled']);
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests Element->with().
-     *
      * @return void
      */
-    public function testWith()
+    public function test_with()
     {
         $element = new Element;
+
         $element->with('data-test', 'value');
 
         $reflection = new \ReflectionClass($element);
         $property = $reflection->getProperty('attrs');
+
         $property->setAccessible(true);
+
         /** @var array<string, mixed> $attrs */
         $attrs = $property->getValue($element);
 
+        $expect = 'value';
+
+        $actual = $attrs['data-test'];
+
         $this->assertArrayHasKey('data-test', $attrs);
-        $this->assertEquals('value', $attrs['data-test']);
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests Element->withClass().
-     *
      * @return void
      */
-    public function testWithClass()
+    public function test_with_class()
     {
         $element = new Element;
+
         $element->withClass('my-class');
 
         $reflection = new \ReflectionClass($element);
         $property = $reflection->getProperty('attrs');
+
         $property->setAccessible(true);
+
         /** @var array<string, mixed> $attrs */
         $attrs = $property->getValue($element);
 
+        $expect = 'my-class';
+
+        $actual = $attrs['class'];
+
         $this->assertArrayHasKey('class', $attrs);
-        $this->assertEquals('my-class', $attrs['class']);
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests Element->withId().
-     *
      * @return void
      */
-    public function testWithId()
+    public function test_with_id()
     {
         $element = new Element;
+
         $element->withId('my-id');
 
         $reflection = new \ReflectionClass($element);
         $property = $reflection->getProperty('attrs');
+
         $property->setAccessible(true);
+
         /** @var array<string, mixed> $attrs */
         $attrs = $property->getValue($element);
 
+        $expect = 'my-id';
+
+        $actual = $attrs['id'];
+
         $this->assertArrayHasKey('id', $attrs);
-        $this->assertEquals('my-id', $attrs['id']);
+        $this->assertEquals($expect, $actual);
     }
 }

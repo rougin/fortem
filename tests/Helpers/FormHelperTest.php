@@ -10,6 +10,11 @@ use Rougin\Fortem\Script;
 use Rougin\Fortem\Select;
 use Rougin\Fortem\Testcase;
 
+/**
+ * @package Fortem
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
+ */
 class FormHelperTest extends Testcase
 {
     /**
@@ -18,135 +23,144 @@ class FormHelperTest extends Testcase
     protected $form;
 
     /**
-     * Sets up the class.
-     *
      * @return void
      */
-    public function setUp(): void
+    protected function doSetUp()
     {
-        parent::setUp();
+        parent::doSetUp();
 
         $this->form = new FormHelper;
     }
 
     /**
-     * Tests FormHelper->button().
-     *
      * @return void
      */
     public function test_button()
     {
-        $result = $this->form->button('Submit');
-        $this->assertInstanceOf(Button::class, $result);
-        $this->assertEquals('<button type="button">Submit</button>', $result);
+        $expect = '<button type="button">Submit</button>';
 
-        $resultWithClass = $this->form->button('Submit', 'btn btn-primary');
-        $this->assertEquals('<button type="button" class="btn btn-primary">Submit</button>', $resultWithClass);
+        $actual = $this->form->button('Submit')->__toString();
+
+        $this->assertEquals($expect, $actual);
+
+        $expect = '<button type="button" class="btn btn-primary">Submit</button>';
+
+        $actual = $this->form->button('Submit', 'btn btn-primary')->__toString();
+
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests FormHelper->error().
-     *
      * @return void
      */
     public function test_error()
     {
-        $result = $this->form->error('error.name');
-        $this->assertInstanceOf(Error::class, $result);
-        $expected = '<template x-if="error.name"><p class="text-danger small mb-0" x-text="error.name[0]"></p></template>';
-        $this->assertEquals($expected, $result);
+        $expect = '<template x-if="error.name"><p class="text-danger small mb-0" x-text="error.name[0]"></p></template>';
+
+        $actual = $this->form->error('error.name')->__toString();
+
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests FormHelper->input().
-     *
      * @return void
      */
     public function test_input()
     {
-        $result = $this->form->input('name');
-        $this->assertInstanceOf(Input::class, $result);
-        $this->assertEquals('<input type="text" name="name">', $result);
+        $expect = '<input type="text" name="name">';
 
-        $resultWithClass = $this->form->input('name', 'form-control');
-        $this->assertEquals('<input type="text" name="name" class="form-control">', $resultWithClass);
+        $actual = $this->form->input('name')->__toString();
+
+        $this->assertEquals($expect, $actual);
+
+        $expect = '<input type="text" name="name" class="form-control">';
+
+        $actual = $this->form->input('name', 'form-control')->__toString();
+
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests FormHelper->label().
-     *
      * @return void
      */
     public function test_label()
     {
-        $result = $this->form->label('Name');
-        $this->assertInstanceOf(Label::class, $result);
-        $this->assertEquals('<label>Name</label>', $result);
+        $expect = '<label>Name</label>';
 
-        $resultWithClass = $this->form->label('Name', 'form-label');
-        $this->assertEquals('<label class="form-label">Name</label>', $resultWithClass);
+        $actual = $this->form->label('Name')->__toString();
+
+        $this->assertEquals($expect, $actual);
+
+        $expect = '<label class="form-label">Name</label>';
+
+        $actual = $this->form->label('Name', 'form-label')->__toString();
+
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests FormHelper->name().
-     *
      * @return void
      */
     public function test_name()
     {
-        $this->assertEquals('form', $this->form->name());
+        $expect = 'form';
+
+        $actual = $this->form->name();
+
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests FormHelper->script().
-     *
      * @return void
      */
     public function test_script()
     {
-        $result = $this->form->script('data');
-        $this->assertInstanceOf(Script::class, $result);
-        $expected = 'let data = [];';
-        $this->assertEquals($expected, $result);
+        $expect = 'let data = [];';
+
+        $actual = $this->form->script('data')->__toString();
+
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests FormHelper->select().
-     *
      * @return void
      */
     public function test_select()
     {
         $items = array('Male', 'Female');
-        $result = $this->form->select('gender', $items);
-        $this->assertInstanceOf(Select::class, $result);
-        $expected = '<select name="gender"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
-        $this->assertEquals($expected, $result);
+
+        $expect = '<select name="gender"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
+
+        $actual = $this->form->select('gender', $items)->__toString();
+
+        $this->assertEquals($expect, $actual);
 
         $assocItems = array(array('value' => 'm', 'label' => 'Male'), array('value' => 'f', 'label' => 'Female'));
-        $resultAssoc = $this->form->select('gender', $assocItems);
-        $expectedAssoc = '<select name="gender"><option value="">Please select</option><option value="m">Male</option><option value="f">Female</option></select>';
+
+        $expect = '<select name="gender"><option value="">Please select</option><option value="m">Male</option><option value="f">Female</option></select>';
+
+        $actual = $this->form->select('gender', $assocItems)->__toString();
+
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests FormHelper->withAlpine().
-     *
      * @return void
      */
     public function test_with_alpine()
     {
-        $form = $this->form->withAlpine();
-        $this->assertInstanceOf(FormHelper::class, $form);
+        $actual = $this->form->withAlpine();
+
+        $this->assertInstanceOf(FormHelper::class, $actual);
     }
 
     /**
-     * Tests FormHelper->withoutAlpine().
-     *
      * @return void
      */
     public function test_without_alpine()
     {
-        $form = $this->form->withoutAlpine();
-        $this->assertInstanceOf(FormHelper::class, $form);
+        $actual = $this->form->withoutAlpine();
+
+        $this->assertInstanceOf(FormHelper::class, $actual);
     }
 }

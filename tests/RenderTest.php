@@ -5,6 +5,11 @@ namespace Rougin\Fortem;
 use Rougin\Slytherin\Template\RendererInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 
+/**
+ * @package Fortem
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
+ */
 class RenderTest extends Testcase
 {
     /**
@@ -15,19 +20,18 @@ class RenderTest extends Testcase
     /**
      * @var MockObject
      */
-    protected $parentRenderer;
+    protected $parent;
 
     /**
-     * Sets up the class.
-     *
      * @return void
      */
-    public function setUp(): void
+    protected function doSetUp()
     {
-        parent::setUp();
+        parent::doSetUp();
 
-        $this->parentRenderer = $this->createMock(RendererInterface::class);
-        $this->render = new Render($this->parentRenderer);
+        $this->parent = $this->createMock(RendererInterface::class);
+
+        $this->render = new Render($this->parent);
     }
 
     /**
@@ -35,18 +39,20 @@ class RenderTest extends Testcase
      *
      * @return void
      */
-    public function testRenderMethod()
+    public function test_render_method()
     {
-        $templateName = 'test-template';
-        $templateData = array('item' => 'value');
-        $expectedOutput = '<h1>Hello, value!</h1>';
+        $expect = '<h1>Hello, value!</h1>';
 
-        $this->parentRenderer->method('render')
-            ->with($templateName, $templateData)
-            ->willReturn($expectedOutput);
+        $name = 'test-template';
 
-        $result = $this->render->render($templateName, $templateData);
+        $data = array('item' => 'value');
 
-        $this->assertEquals($expectedOutput, $result);
+        $this->parent->method('render')
+            ->with($name, $data)
+            ->willReturn($expect);
+
+        $actual = $this->render->render($name, $data);
+
+        $this->assertEquals($expect, $actual);
     }
 }

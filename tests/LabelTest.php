@@ -2,46 +2,54 @@
 
 namespace Rougin\Fortem;
 
+/**
+ * @package Fortem
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
+ */
 class LabelTest extends Testcase
 {
     /**
-     * Tests Label->label().
-     *
      * @return void
      */
-    public function testLabelCanBeCreated()
+    public function test_label_as_required()
     {
-        $expected = '<label>Name</label>';
-        $result = (new Label('Name'))->__toString();
+        $expect = '<label>Name <span class="text-danger">*</span></label>';
 
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * Tests Label->label() with a class.
-     *
-     * @return void
-     */
-    public function testLabelWithClass()
-    {
-        $expected = '<label class="form-label">Name</label>';
         $label = new Label('Name');
-        $label->withClass('form-label');
-        $result = $label;
 
-        $this->assertEquals($expected, $result);
+        $actual = $label->asRequired()->__toString();
+
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests Label->asRequired().
-     *
      * @return void
      */
-    public function testLabelAsRequired()
+    public function test_label_can_be_created()
     {
-        $expected = '<label>Name <span class="text-danger">*</span></label>';
-        $result = (new Label('Name'))->asRequired()->__toString();
+        $expect = '<label>Name</label>';
 
-        $this->assertEquals($expected, $result);
+        $label = new Label('Name');
+
+        $actual = $label->__toString();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_label_with_class()
+    {
+        $expect = '<label class="form-label">Name</label>';
+
+        $label = new Label('Name');
+
+        $label->withClass('form-label');
+
+        $actual = $label->__toString();
+
+        $this->assertEquals($expect, $actual);
     }
 }

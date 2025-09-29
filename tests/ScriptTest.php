@@ -2,62 +2,77 @@
 
 namespace Rougin\Fortem;
 
+/**
+ * @package Fortem
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
+ */
 class ScriptTest extends Testcase
 {
     /**
-     * Tests Script->script() with multiple methods.
-     *
      * @return void
      */
-    public function testScriptWithMultipleMethods()
+    public function test_script_with()
     {
-        $expected = 'let data = {"name":"John Doe","age":30,"loading":false,"error":{}};';
-        $result = (new Script('data'))
+        $expect = 'let config = {"key":"value"};';
+
+        $script = new Script('config');
+
+        $script->with('key', 'value');
+
+        $actual = $script->__toString();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_script_with_error()
+    {
+        $expect = 'let app = {"error":{}};';
+
+        $script = new Script('app');
+
+        $script->withError();
+
+        $actual = $script->__toString();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_script_with_loading()
+    {
+        $expect = 'let app = {"loading":false};';
+
+        $script = new Script('app');
+
+        $script->withLoading();
+
+        $actual = $script->__toString();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_script_with_multiple_methods()
+    {
+        $expect = 'let data = {"error":{},"name":"John Doe","age":30,"loading":false};';
+
+        $script = new Script('data');
+
+        $script->withError()
             ->with('name', 'John Doe')
             ->with('age', 30)
-            ->withLoading()
-            ->withError()
-            ->__toString();
+            ->withLoading();
 
-        $this->assertEquals($expected, $result);
-    }
+        $actual = $script->__toString();
 
-    /**
-     * Tests Script->with().
-     *
-     * @return void
-     */
-    public function testScriptWith()
-    {
-        $expected = 'let config = {"key":"value"};';
-        $result = (new Script('config'))->with('key', 'value')->__toString();
-
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * Tests Script->withLoading().
-     *
-     * @return void
-     */
-    public function testScriptWithLoading()
-    {
-        $expected = 'let app = {"loading":false};';
-        $result = (new Script('app'))->withLoading()->__toString();
-
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * Tests Script->withError().
-     *
-     * @return void
-     */
-    public function testScriptWithError()
-    {
-        $expected = 'let app = {"error":{}};';
-        $result = (new Script('app'))->withError()->__toString();
-
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expect, $actual);
     }
 }

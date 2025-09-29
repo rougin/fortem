@@ -7,6 +7,11 @@ use Rougin\Slytherin\Template\RendererInterface;
 use Rougin\Fortem\Helpers\LinkHelper;
 use PHPUnit\Framework\MockObject\MockObject;
 
+/**
+ * @package Fortem
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
+ */
 class PlateTest extends Testcase
 {
     /**
@@ -25,13 +30,11 @@ class PlateTest extends Testcase
     protected $request;
 
     /**
-     * Sets up the class.
-     *
      * @return void
      */
-    public function setUp(): void
+    protected function doSetUp()
     {
-        parent::setUp();
+        parent::doSetUp();
 
         $this->renderer = $this->createMock(RendererInterface::class);
         $this->request = $this->createMock(ServerRequestInterface::class);
@@ -50,11 +53,11 @@ class PlateTest extends Testcase
      *
      * @return void
      */
-    public function testGetLinkHelper()
+    public function test_get_link_helper()
     {
-        $result = $this->plate->getLinkHelper();
+        $actual = $this->plate->getLinkHelper();
 
-        $this->assertInstanceOf(LinkHelper::class, $result);
+        $this->assertInstanceOf(LinkHelper::class, $actual);
     }
 
     /**
@@ -62,11 +65,11 @@ class PlateTest extends Testcase
      *
      * @return void
      */
-    public function testRender()
+    public function test_render()
     {
         $templateName = 'test-template';
         $templateData = array('key' => 'value');
-        $renderedContent = '<div>Test Content</div>';
+        $expect = '<div>Test Content</div>';
 
         $this->renderer->method('render')
             ->with($templateName, $this->callback(function ($data)
@@ -81,13 +84,13 @@ class PlateTest extends Testcase
                 // $this->assertArrayHasKey('link', $data); // Commented out for now
                 return true;
             }))
-            ->willReturn($renderedContent);
+            ->willReturn($expect);
 
-        $result = $this->plate->render($templateName, $templateData);
+        $actual = $this->plate->render($templateName, $templateData);
 
         // Since filters are applied, the result might be different from renderedContent
         // For a basic test, we can assert it contains the rendered content.
         // More robust tests would involve mocking filters as well.
-        $this->assertStringContainsString('Test Content', $result);
+        $this->assertStringContainsString('Test Content', $actual);
     }
 }

@@ -4,6 +4,11 @@ namespace Rougin\Fortem\Helpers;
 
 use Rougin\Fortem\Testcase;
 
+/**
+ * @package Fortem
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
+ */
 class LinkHelperTest extends Testcase
 {
     /**
@@ -12,43 +17,52 @@ class LinkHelperTest extends Testcase
     protected $server = array();
 
     /**
-     * Sets up the class.
-     *
      * @return void
      */
-    public function setUp(): void
+    protected function doSetUp()
     {
-        parent::setUp();
+        parent::doSetUp();
 
-        $this->server = array();
-        $this->server['HTTP_HOST'] = 'localhost';
-        $this->server['REQUEST_URI'] = '/';
+        $server = array();
+
+        $server['HTTP_HOST'] = 'localhost';
+
+        $server['REQUEST_URI'] = '/';
+
+        $this->server = $server;
     }
 
     /**
-     * Tests LinkHelper->getCurrent().
-     *
      * @return void
      */
-    public function testGetCurrent()
+    public function test_get_current()
     {
         $link = 'http://localhost';
+
         $helper = new LinkHelper($link, $this->server);
 
-        $this->assertEquals('http://localhost/', $helper->getCurrent());
+        $expect = 'http://localhost/';
+
+        $actual = $helper->getCurrent();
+
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests LinkHelper->isCurrent().
-     *
      * @return void
      */
-    public function testIsCurrent()
+    public function test_is_current()
     {
         $link = 'http://localhost';
+
         $helper = new LinkHelper($link, $this->server);
 
-        $this->assertTrue($helper->isCurrent('/'));
-        $this->assertFalse($helper->isCurrent('/other'));
+        $actual = $helper->isCurrent('/');
+
+        $this->assertTrue($actual);
+
+        $actual = $helper->isCurrent('/other');
+
+        $this->assertFalse($actual);
     }
 }

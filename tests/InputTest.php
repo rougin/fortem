@@ -2,85 +2,104 @@
 
 namespace Rougin\Fortem;
 
+/**
+ * @package Fortem
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
+ */
 class InputTest extends Testcase
 {
     /**
-     * Tests Input->input().
-     *
      * @return void
      */
-    public function testInputCanBeCreated()
+    public function test_input_as_email()
     {
-        $expected = '<input type="text" name="name">';
-        $result = (new Input('name'))->__toString();
+        $expect = '<input type="email" name="email">';
 
-        $this->assertEquals($expected, $result);
+        $input = new Input('email');
+
+        $input->asEmail();
+
+        $actual = $input->__toString();
+
+        $this->assertEquals($expect, $actual);
     }
 
     /**
-     * Tests Input->input() with a class.
-     *
      * @return void
      */
-    public function testInputWithClass()
+    public function test_input_as_model()
     {
-        $expected = '<input type="text" name="name" class="form-control">';
+        $expect = '<input type="text" name="name" x-model="name">';
+
         $input = new Input('name');
+
+        $input->asModel();
+
+        $actual = $input->__toString();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_input_as_number()
+    {
+        $expect = '<input type="number" name="age">';
+
+        $input = new Input('age');
+
+        $input->asNumber();
+
+        $actual = $input->__toString();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_input_can_be_created()
+    {
+        $expect = '<input type="text" name="name">';
+
+        $input = new Input('name');
+
+        $actual = $input->__toString();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_input_disables_on()
+    {
+        $expect = '<input type="text" name="name" :disabled="loading">';
+
+        $input = new Input('name');
+
+        $input->disablesOn('loading');
+
+        $actual = $input->__toString();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_input_with_class()
+    {
+        $expect = '<input type="text" name="name" class="form-control">';
+
+        $input = new Input('name');
+
         $input->withClass('form-control');
-        $result = $input;
 
-        $this->assertEquals($expected, $result);
-    }
+        $actual = $input->__toString();
 
-    /**
-     * Tests Input->asEmail().
-     *
-     * @return void
-     */
-    public function testInputAsEmail()
-    {
-        $expected = '<input type="email" name="email">';
-        $result = (new Input('email'))->asEmail()->__toString();
-
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * Tests Input->asNumber().
-     *
-     * @return void
-     */
-    public function testInputAsNumber()
-    {
-        $expected = '<input type="number" name="age">';
-        $result = (new Input('age'))->asNumber()->__toString();
-
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * Tests Input->asModel().
-     *
-     * @return void
-     */
-    public function testInputAsModel()
-    {
-        $expected = '<input type="text" name="name" x-model="name">';
-        $result = (new Input('name'))->asModel()->__toString();
-
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * Tests Input->disablesOn().
-     *
-     * @return void
-     */
-    public function testInputDisablesOn()
-    {
-        $expected = '<input type="text" name="name" :disabled="loading">';
-        $result = (new Input('name'))->disablesOn('loading')->__toString();
-
-        $this->assertEquals($expected, $result);
+        $this->assertEquals($expect, $actual);
     }
 }
