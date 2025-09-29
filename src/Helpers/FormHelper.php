@@ -41,7 +41,7 @@ class FormHelper implements HelperInterface
     }
 
     /**
-     * TODO: This is a specific code for "alpinejs".
+     * NOTE: This is a specific code for "alpinejs".
      *
      * @param string  $field
      * @param boolean $first
@@ -125,16 +125,18 @@ class FormHelper implements HelperInterface
             $elem->withClass($class);
         }
 
-        $parsed = $items;
+        $parsed = array();
 
-        if ($this->isArrayList($items))
+        foreach ($items as $index => $item)
         {
-            $parsed = array();
-
-            foreach ($items as $id => $name)
+            if (is_array($item) && array_key_exists('value', $item))
             {
-                $parsed[] = compact('id', 'name');
+                $parsed[] = $item;
+
+                continue;
             }
+
+            $parsed[] = array('value' => $index, 'label' => $item);
         }
 
         /** @var array<string, string>[] $parsed */
@@ -161,18 +163,4 @@ class FormHelper implements HelperInterface
         return $this;
     }
 
-    /**
-     * @param mixed[] $items
-     *
-     * @return boolean
-     */
-    protected function isArrayList($items)
-    {
-        if ($items === array())
-        {
-            return true;
-        }
-
-        return array_keys($items) === range(0, count($items) - 1);
-    }
 }

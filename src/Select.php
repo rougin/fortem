@@ -10,7 +10,7 @@ namespace Rougin\Fortem;
 class Select extends Element
 {
     /**
-     * @var array<string, string>[]
+     * @var array<string, mixed>[]
      */
     protected $items = array();
 
@@ -33,14 +33,14 @@ class Select extends Element
 
         foreach ($this->items as $item)
         {
-            $html .= '<option value="' . $item['id'] . '">' . $item['name'] . '</option>';
+            $html .= '<option value="' . $item['value'] . '">' . $item['label'] . '</option>';
         }
 
         return $html . '</select>';
     }
 
     /**
-     * TODO: This is a specific code for "alpinejs".
+     * NOTE: This is a specific code for "alpinejs".
      *
      * @param string|null $name
      *
@@ -52,7 +52,7 @@ class Select extends Element
     }
 
     /**
-     * @param array<string, string>[] $items
+     * @param array<string, mixed>[] $items
      *
      * @return self
      */

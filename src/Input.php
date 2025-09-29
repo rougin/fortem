@@ -44,7 +44,7 @@ class Input extends Element
     }
 
     /**
-     * TODO: This is a specific code for "alpinejs".
+     * NOTE: This is a specific code for "alpinejs".
      *
      * @param string|null $name
      *

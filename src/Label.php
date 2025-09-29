@@ -41,7 +41,9 @@ class Label extends Element
             $text .= ' <span class="text-danger">*</span>';
         }
 
-        return '<label ' . $attrs . '>' . $text . '</label>';
+        $attrs = $attrs ? ' ' . $attrs : '';
+
+        return '<label' . $attrs . '>' . $text . '</label>';
     }
 
     /**

@@ -15,7 +15,7 @@ class Element
     protected $attrs = array();
 
     /**
-     * TODO: This is a specific code for "alpinejs".
+     * NOTE: This is a specific code for "alpinejs".
      *
      * @param string $name
      *

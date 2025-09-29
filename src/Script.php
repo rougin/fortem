@@ -3,7 +3,7 @@
 namespace Rougin\Fortem;
 
 /**
- * TODO: This is a specific code for "alpinejs".
+ * NOTE: This is a specific code for "alpinejs".
  *
  * @package Fortem
  *
