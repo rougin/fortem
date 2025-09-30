@@ -2,12 +2,6 @@
 
 namespace Rougin\Fortem\Helpers;
 
-use Rougin\Fortem\Button;
-use Rougin\Fortem\Error;
-use Rougin\Fortem\Input;
-use Rougin\Fortem\Label;
-use Rougin\Fortem\Script;
-use Rougin\Fortem\Select;
 use Rougin\Fortem\Testcase;
 
 /**
@@ -18,34 +12,21 @@ use Rougin\Fortem\Testcase;
 class FormHelperTest extends Testcase
 {
     /**
-     * @var \Rougin\Fortem\Helpers\FormHelper
-     */
-    protected $form;
-
-    /**
-     * @return void
-     */
-    protected function doSetUp()
-    {
-        parent::doSetUp();
-
-        $this->form = new FormHelper;
-    }
-
-    /**
      * @return void
      */
     public function test_button()
     {
+        $form = new FormHelper;
+
         $expect = '<button type="button">Submit</button>';
 
-        $actual = $this->form->button('Submit')->__toString();
+        $actual = $form->button('Submit');
 
         $this->assertEquals($expect, $actual);
 
         $expect = '<button type="button" class="btn btn-primary">Submit</button>';
 
-        $actual = $this->form->button('Submit', 'btn btn-primary')->__toString();
+        $actual = $form->button('Submit', 'btn btn-primary');
 
         $this->assertEquals($expect, $actual);
     }
@@ -55,9 +36,11 @@ class FormHelperTest extends Testcase
      */
     public function test_error()
     {
+        $form = new FormHelper;
+
         $expect = '<template x-if="error.name"><p class="text-danger small mb-0" x-text="error.name[0]"></p></template>';
 
-        $actual = $this->form->error('error.name')->__toString();
+        $actual = $form->error('error.name');
 
         $this->assertEquals($expect, $actual);
     }
@@ -67,15 +50,17 @@ class FormHelperTest extends Testcase
      */
     public function test_input()
     {
+        $form = new FormHelper;
+
         $expect = '<input type="text" name="name">';
 
-        $actual = $this->form->input('name')->__toString();
+        $actual = $form->input('name');
 
         $this->assertEquals($expect, $actual);
 
         $expect = '<input type="text" name="name" class="form-control">';
 
-        $actual = $this->form->input('name', 'form-control')->__toString();
+        $actual = $form->input('name', 'form-control');
 
         $this->assertEquals($expect, $actual);
     }
@@ -85,15 +70,17 @@ class FormHelperTest extends Testcase
      */
     public function test_label()
     {
+        $form = new FormHelper;
+
         $expect = '<label>Name</label>';
 
-        $actual = $this->form->label('Name')->__toString();
+        $actual = $form->label('Name');
 
         $this->assertEquals($expect, $actual);
 
         $expect = '<label class="form-label">Name</label>';
 
-        $actual = $this->form->label('Name', 'form-label')->__toString();
+        $actual = $form->label('Name', 'form-label');
 
         $this->assertEquals($expect, $actual);
     }
@@ -103,9 +90,11 @@ class FormHelperTest extends Testcase
      */
     public function test_name()
     {
+        $form = new FormHelper;
+
         $expect = 'form';
 
-        $actual = $this->form->name();
+        $actual = $form->name();
 
         $this->assertEquals($expect, $actual);
     }
@@ -115,9 +104,11 @@ class FormHelperTest extends Testcase
      */
     public function test_script()
     {
+        $form = new FormHelper;
+
         $expect = 'let data = [];';
 
-        $actual = $this->form->script('data')->__toString();
+        $actual = $form->script('data');
 
         $this->assertEquals($expect, $actual);
     }
@@ -127,19 +118,23 @@ class FormHelperTest extends Testcase
      */
     public function test_select()
     {
+        $form = new FormHelper;
+
         $items = array('Male', 'Female');
 
         $expect = '<select name="gender"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
 
-        $actual = $this->form->select('gender', $items)->__toString();
+        $actual = $form->select('gender', $items);
 
         $this->assertEquals($expect, $actual);
 
-        $assocItems = array(array('value' => 'm', 'label' => 'Male'), array('value' => 'f', 'label' => 'Female'));
+        $items = array();
+        $items[] = array('value' => 'm', 'label' => 'Male');
+        $items[] = array('value' => 'f', 'label' => 'Female');
 
         $expect = '<select name="gender"><option value="">Please select</option><option value="m">Male</option><option value="f">Female</option></select>';
 
-        $actual = $this->form->select('gender', $assocItems)->__toString();
+        $actual = $form->select('gender', $items);
 
         $this->assertEquals($expect, $actual);
     }
@@ -149,9 +144,13 @@ class FormHelperTest extends Testcase
      */
     public function test_with_alpine()
     {
-        $actual = $this->form->withAlpine();
+        $form = new FormHelper;
 
-        $this->assertInstanceOf(FormHelper::class, $actual);
+        $expect = FormHelper::class;
+
+        $actual = $form->withAlpine();
+
+        $this->assertInstanceOf($expect, $actual);
     }
 
     /**
@@ -159,8 +158,12 @@ class FormHelperTest extends Testcase
      */
     public function test_without_alpine()
     {
-        $actual = $this->form->withoutAlpine();
+        $form = new FormHelper;
 
-        $this->assertInstanceOf(FormHelper::class, $actual);
+        $expect = FormHelper::class;
+
+        $actual = $form->withoutAlpine();
+
+        $this->assertInstanceOf($expect, $actual);
     }
 }

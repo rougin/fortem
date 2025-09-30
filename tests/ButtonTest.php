@@ -16,9 +16,7 @@ class ButtonTest extends Testcase
     {
         $expect = '<button type="button">Submit</button>';
 
-        $button = new Button('Submit');
-
-        $actual = $button->__toString();
+        $actual = new Button('Submit');
 
         $this->assertEquals($expect, $actual);
     }
@@ -30,11 +28,9 @@ class ButtonTest extends Testcase
     {
         $expect = '<button type="button" class="btn btn-primary">Submit</button>';
 
-        $button = new Button('Submit');
+        $actual = new Button('Submit');
 
-        $button->withClass('btn btn-primary');
-
-        $actual = $button->__toString();
+        $actual->withClass('btn btn-primary');
 
         $this->assertEquals($expect, $actual);
     }
@@ -46,11 +42,9 @@ class ButtonTest extends Testcase
     {
         $expect = '<button type="submit">Submit</button>';
 
-        $button = new Button('Submit');
+        $actual = new Button('Submit');
 
-        $button->withType('submit');
-
-        $actual = $button->__toString();
+        $actual->withType('submit');
 
         $this->assertEquals($expect, $actual);
     }
@@ -62,11 +56,9 @@ class ButtonTest extends Testcase
     {
         $expect = '<button type="button" @click="submitForm">Submit</button>';
 
-        $button = new Button('Submit');
+        $actual = new Button('Submit');
 
-        $button->onClick('submitForm');
-
-        $actual = $button->__toString();
+        $actual->onClick('submitForm');
 
         $this->assertEquals($expect, $actual);
     }

@@ -29,7 +29,7 @@ class SelectTest extends Testcase
 
         $select->withItems($parsed);
 
-        $actual = $select->asModel()->__toString();
+        $actual = $select->asModel();
 
         $this->assertEquals($expect, $actual);
     }
@@ -45,9 +45,7 @@ class SelectTest extends Testcase
 
         $select = new Select('gender');
 
-        $select->withItems($items);
-
-        $actual = $select->__toString();
+        $actual = $select->withItems($items);
 
         $this->assertEquals($expect, $actual);
     }
@@ -70,9 +68,7 @@ class SelectTest extends Testcase
 
         $select = new Select('gender');
 
-        $select->withItems($parsed);
-
-        $actual = $select->__toString();
+        $actual = $select->withItems($parsed);
 
         $this->assertEquals($expect, $actual);
     }

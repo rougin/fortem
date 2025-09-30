@@ -16,9 +16,7 @@ class ErrorTest extends Testcase
     {
         $expect = '<template x-if="error.name"><p class="text-danger small mb-0" x-text="error.name[0]"></p></template>';
 
-        $error = new Error('error.name');
-
-        $actual = $error->__toString();
+        $actual = new Error('error.name');
 
         $this->assertEquals($expect, $actual);
     }

@@ -50,9 +50,7 @@ class ScriptTest extends Testcase
 
         $script = new Script('app');
 
-        $script->withLoading();
-
-        $actual = $script->__toString();
+        $actual = $script->withLoading();
 
         $this->assertEquals($expect, $actual);
     }
@@ -66,12 +64,10 @@ class ScriptTest extends Testcase
 
         $script = new Script('data');
 
-        $script->withError()
+        $actual = $script->withError()
             ->with('name', 'John Doe')
             ->with('age', 30)
             ->withLoading();
-
-        $actual = $script->__toString();
 
         $this->assertEquals($expect, $actual);
     }

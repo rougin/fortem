@@ -18,7 +18,7 @@ class LabelTest extends Testcase
 
         $label = new Label('Name');
 
-        $actual = $label->asRequired()->__toString();
+        $actual = $label->asRequired();
 
         $this->assertEquals($expect, $actual);
     }
@@ -30,9 +30,7 @@ class LabelTest extends Testcase
     {
         $expect = '<label>Name</label>';
 
-        $label = new Label('Name');
-
-        $actual = $label->__toString();
+        $actual = new Label('Name');
 
         $this->assertEquals($expect, $actual);
     }
@@ -46,9 +44,7 @@ class LabelTest extends Testcase
 
         $label = new Label('Name');
 
-        $label->withClass('form-label');
-
-        $actual = $label->__toString();
+        $actual = $label->withClass('form-label');
 
         $this->assertEquals($expect, $actual);
     }

@@ -18,13 +18,14 @@ class ElementTest extends Testcase
 
         $element->disablesOn('loading');
 
-        $reflection = new \ReflectionClass($element);
-        $property = $reflection->getProperty('attrs');
-
-        $property->setAccessible(true);
+        // TODO: Do not use Reflection API -----
+        $class = new \ReflectionClass($element);
+        $prop = $class->getProperty('attrs');
+        $prop->setAccessible(true);
 
         /** @var array<string, mixed> $attrs */
-        $attrs = $property->getValue($element);
+        $attrs = $prop->getValue($element);
+        // -------------------------------------
 
         $expect = 'loading';
 
@@ -43,13 +44,14 @@ class ElementTest extends Testcase
 
         $element->with('data-test', 'value');
 
-        $reflection = new \ReflectionClass($element);
-        $property = $reflection->getProperty('attrs');
-
-        $property->setAccessible(true);
+        // TODO: Do not use Reflection API -----
+        $class = new \ReflectionClass($element);
+        $prop = $class->getProperty('attrs');
+        $prop->setAccessible(true);
 
         /** @var array<string, mixed> $attrs */
-        $attrs = $property->getValue($element);
+        $attrs = $prop->getValue($element);
+        // -------------------------------------
 
         $expect = 'value';
 
@@ -68,13 +70,14 @@ class ElementTest extends Testcase
 
         $element->withClass('my-class');
 
-        $reflection = new \ReflectionClass($element);
-        $property = $reflection->getProperty('attrs');
-
-        $property->setAccessible(true);
+        // TODO: Do not use Reflection API -----
+        $class = new \ReflectionClass($element);
+        $prop = $class->getProperty('attrs');
+        $prop->setAccessible(true);
 
         /** @var array<string, mixed> $attrs */
-        $attrs = $property->getValue($element);
+        $attrs = $prop->getValue($element);
+        // -------------------------------------
 
         $expect = 'my-class';
 
@@ -93,13 +96,14 @@ class ElementTest extends Testcase
 
         $element->withId('my-id');
 
-        $reflection = new \ReflectionClass($element);
-        $property = $reflection->getProperty('attrs');
-
-        $property->setAccessible(true);
+        // TODO: Do not use Reflection API -----
+        $class = new \ReflectionClass($element);
+        $prop = $class->getProperty('attrs');
+        $prop->setAccessible(true);
 
         /** @var array<string, mixed> $attrs */
-        $attrs = $property->getValue($element);
+        $attrs = $prop->getValue($element);
+        // -------------------------------------
 
         $expect = 'my-id';
 

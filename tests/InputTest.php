@@ -18,9 +18,7 @@ class InputTest extends Testcase
 
         $input = new Input('email');
 
-        $input->asEmail();
-
-        $actual = $input->__toString();
+        $actual = $input->asEmail();
 
         $this->assertEquals($expect, $actual);
     }
@@ -34,9 +32,7 @@ class InputTest extends Testcase
 
         $input = new Input('name');
 
-        $input->asModel();
-
-        $actual = $input->__toString();
+        $actual = $input->asModel();
 
         $this->assertEquals($expect, $actual);
     }
@@ -50,9 +46,7 @@ class InputTest extends Testcase
 
         $input = new Input('age');
 
-        $input->asNumber();
-
-        $actual = $input->__toString();
+        $actual = $input->asNumber();
 
         $this->assertEquals($expect, $actual);
     }
@@ -64,9 +58,7 @@ class InputTest extends Testcase
     {
         $expect = '<input type="text" name="name">';
 
-        $input = new Input('name');
-
-        $actual = $input->__toString();
+        $actual = new Input('name');
 
         $this->assertEquals($expect, $actual);
     }
@@ -80,9 +72,7 @@ class InputTest extends Testcase
 
         $input = new Input('name');
 
-        $input->disablesOn('loading');
-
-        $actual = $input->__toString();
+        $actual = $input->disablesOn('loading');
 
         $this->assertEquals($expect, $actual);
     }
@@ -96,9 +86,7 @@ class InputTest extends Testcase
 
         $input = new Input('name');
 
-        $input->withClass('form-control');
-
-        $actual = $input->__toString();
+        $actual = $input->withClass('form-control');
 
         $this->assertEquals($expect, $actual);
     }
