@@ -61,7 +61,7 @@ class Label extends Element
      *
      * @return self
      */
-    public function for($name)
+    public function forField($name)
     {
         return $this->with('for', $name);
     }
