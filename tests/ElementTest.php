@@ -14,24 +14,14 @@ class ElementTest extends Testcase
      */
     public function test_disables_on()
     {
-        $element = new Element;
+        $expect = ':disabled="loading"';
 
-        $element->disablesOn('loading');
+        $el = new Element;
 
-        // TODO: Do not use Reflection API -----
-        $class = new \ReflectionClass($element);
-        $prop = $class->getProperty('attrs');
-        $prop->setAccessible(true);
+        $el->disablesOn('loading');
 
-        /** @var array<string, mixed> $attrs */
-        $attrs = $prop->getValue($element);
-        // -------------------------------------
+        $actual = $el->getAttrs();
 
-        $expect = 'loading';
-
-        $actual = $attrs[':disabled'];
-
-        $this->assertArrayHasKey(':disabled', $attrs);
         $this->assertEquals($expect, $actual);
     }
 
@@ -40,24 +30,14 @@ class ElementTest extends Testcase
      */
     public function test_with()
     {
-        $element = new Element;
+        $expect = 'data-test="value"';
 
-        $element->with('data-test', 'value');
+        $el = new Element;
 
-        // TODO: Do not use Reflection API -----
-        $class = new \ReflectionClass($element);
-        $prop = $class->getProperty('attrs');
-        $prop->setAccessible(true);
+        $el->with('data-test', 'value');
 
-        /** @var array<string, mixed> $attrs */
-        $attrs = $prop->getValue($element);
-        // -------------------------------------
+        $actual = $el->getAttrs();
 
-        $expect = 'value';
-
-        $actual = $attrs['data-test'];
-
-        $this->assertArrayHasKey('data-test', $attrs);
         $this->assertEquals($expect, $actual);
     }
 
@@ -66,24 +46,14 @@ class ElementTest extends Testcase
      */
     public function test_with_class()
     {
-        $element = new Element;
+        $expect = 'class="my-class"';
 
-        $element->withClass('my-class');
+        $el = new Element;
 
-        // TODO: Do not use Reflection API -----
-        $class = new \ReflectionClass($element);
-        $prop = $class->getProperty('attrs');
-        $prop->setAccessible(true);
+        $el->withClass('my-class');
 
-        /** @var array<string, mixed> $attrs */
-        $attrs = $prop->getValue($element);
-        // -------------------------------------
+        $actual = $el->getAttrs();
 
-        $expect = 'my-class';
-
-        $actual = $attrs['class'];
-
-        $this->assertArrayHasKey('class', $attrs);
         $this->assertEquals($expect, $actual);
     }
 
@@ -92,24 +62,14 @@ class ElementTest extends Testcase
      */
     public function test_with_id()
     {
-        $element = new Element;
+        $expect = 'id="my-id"';
 
-        $element->withId('my-id');
+        $el = new Element;
 
-        // TODO: Do not use Reflection API -----
-        $class = new \ReflectionClass($element);
-        $prop = $class->getProperty('attrs');
-        $prop->setAccessible(true);
+        $el->withId('my-id');
 
-        /** @var array<string, mixed> $attrs */
-        $attrs = $prop->getValue($element);
-        // -------------------------------------
+        $actual = $el->getAttrs();
 
-        $expect = 'my-id';
-
-        $actual = $attrs['id'];
-
-        $this->assertArrayHasKey('id', $attrs);
         $this->assertEquals($expect, $actual);
     }
 }

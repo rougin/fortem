@@ -12,34 +12,15 @@ use Rougin\Fortem\Testcase;
 class LinkHelperTest extends Testcase
 {
     /**
-     * @var array<string, string>
-     */
-    protected $server = array();
-
-    /**
-     * @return void
-     */
-    protected function doSetUp()
-    {
-        parent::doSetUp();
-
-        $server = array();
-
-        $server['HTTP_HOST'] = 'localhost';
-
-        $server['REQUEST_URI'] = '/';
-
-        $this->server = $server;
-    }
-
-    /**
      * @return void
      */
     public function test_get_current()
     {
+        $server = $this->newServer();
+
         $link = 'http://localhost';
 
-        $helper = new LinkHelper($link, $this->server);
+        $helper = new LinkHelper($link, $server);
 
         $expect = 'http://localhost/';
 
@@ -53,9 +34,11 @@ class LinkHelperTest extends Testcase
      */
     public function test_is_current()
     {
+        $server = $this->newServer();
+
         $link = 'http://localhost';
 
-        $helper = new LinkHelper($link, $this->server);
+        $helper = new LinkHelper($link, $server);
 
         $actual = $helper->isCurrent('/');
 
@@ -64,5 +47,19 @@ class LinkHelperTest extends Testcase
         $actual = $helper->isCurrent('/other');
 
         $this->assertFalse($actual);
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    protected function newServer()
+    {
+        $server = array();
+
+        $server['HTTP_HOST'] = 'localhost';
+
+        $server['REQUEST_URI'] = '/';
+
+        return $server;
     }
 }

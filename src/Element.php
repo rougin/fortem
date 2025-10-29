@@ -27,6 +27,21 @@ class Element
     }
 
     /**
+     * @return string
+     */
+    public function getAttrs()
+    {
+        $items = array();
+
+        foreach ($this->attrs as $key => $value)
+        {
+            $items[] = $key . '="' . $value . '"';
+        }
+
+        return implode(' ', $items);
+    }
+
+    /**
      * @param string $key
      * @param mixed  $value
      *
@@ -57,20 +72,5 @@ class Element
     public function withId($id)
     {
         return $this->with('id', $id);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getAttrs()
-    {
-        $items = array();
-
-        foreach ($this->attrs as $key => $value)
-        {
-            $items[] = $key . '="' . $value . '"';
-        }
-
-        return implode(' ', $items);
     }
 }
