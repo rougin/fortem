@@ -12,6 +12,22 @@ class ScriptTest extends Testcase
     /**
      * @return void
      */
+    public function test_get_fields()
+    {
+        $expect = array('name' => 'John Doe', 'age' => 30);
+
+        $script = new Script('data');
+
+        $script->with('name', 'John Doe')->with('age', 30);
+
+        $actual = $script->getFields();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
     public function test_script_with()
     {
         $expect = 'let config = {"key":"value"};';

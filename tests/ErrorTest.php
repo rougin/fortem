@@ -20,4 +20,16 @@ class ErrorTest extends Testcase
 
         $this->assertEquals($expect, $actual);
     }
+
+    /**
+     * @return void
+     */
+    public function test_to_string_with_first()
+    {
+        $expect = '<template x-if="error.name"><p class="text-danger small mb-0" x-text="error.name"></p></template>';
+
+        $actual = new Error('error.name', true);
+
+        $this->assertEquals($expect, (string) $actual);
+    }
 }

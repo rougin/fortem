@@ -142,6 +142,22 @@ class FormHelperTest extends Testcase
     /**
      * @return void
      */
+    public function test_select_with_class()
+    {
+        $expect = '<select name="gender" class="form-select"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
+
+        $form = new FormHelper;
+
+        $items = array('Male', 'Female');
+
+        $actual = $form->select('gender', $items, 'form-select');
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
     public function test_with_alpine()
     {
         $form = new FormHelper;
