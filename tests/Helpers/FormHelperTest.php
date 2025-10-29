@@ -70,9 +70,9 @@ class FormHelperTest extends Testcase
      */
     public function test_label()
     {
-        $form = new FormHelper;
-
         $expect = '<label>Name</label>';
+
+        $form = new FormHelper;
 
         $actual = $form->label('Name');
 
@@ -104,9 +104,9 @@ class FormHelperTest extends Testcase
      */
     public function test_script()
     {
-        $form = new FormHelper;
-
         $expect = 'let data = [];';
+
+        $form = new FormHelper;
 
         $actual = $form->script('data');
 
@@ -118,11 +118,11 @@ class FormHelperTest extends Testcase
      */
     public function test_select()
     {
+        $expect = '<select name="gender"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
+
         $form = new FormHelper;
 
         $items = array('Male', 'Female');
-
-        $expect = '<select name="gender"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
 
         $actual = $form->select('gender', $items);
 
@@ -146,7 +146,7 @@ class FormHelperTest extends Testcase
     {
         $form = new FormHelper;
 
-        $expect = FormHelper::class;
+        $expect = 'Rougin\Fortem\Helpers\FormHelper';
 
         $actual = $form->withAlpine();
 
@@ -160,7 +160,7 @@ class FormHelperTest extends Testcase
     {
         $form = new FormHelper;
 
-        $expect = FormHelper::class;
+        $expect = 'Rougin\Fortem\Helpers\FormHelper';
 
         $actual = $form->withoutAlpine();
 
