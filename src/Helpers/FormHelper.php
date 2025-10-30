@@ -8,14 +8,13 @@ use Rougin\Fortem\Input;
 use Rougin\Fortem\Label;
 use Rougin\Fortem\Script;
 use Rougin\Fortem\Select;
-use Staticka\Helper\HelperInterface;
 
 /**
  * @package Fortem
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
-class FormHelper implements HelperInterface
+class FormHelper
 {
     /**
      * @var boolean
