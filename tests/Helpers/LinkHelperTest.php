@@ -18,13 +18,13 @@ class LinkHelperTest extends Testcase
     {
         $server = $this->newServer();
 
-        $helper = new LinkHelper($server);
+        $link = new LinkHelper($server);
 
         $expect = 'http://roug.in/';
 
-        $helper->setBase('roug.in');
+        $link->setBase('roug.in');
 
-        $actual = $helper->getCurrent();
+        $actual = $link->__toString();
 
         $this->assertEquals($expect, $actual);
     }
@@ -36,11 +36,11 @@ class LinkHelperTest extends Testcase
     {
         $server = $this->newServer();
 
-        $helper = new LinkHelper($server);
+        $link = new LinkHelper($server);
 
         $expect = 'http://localhost/';
 
-        $actual = $helper->getCurrent();
+        $actual = $link->__toString();
 
         $this->assertEquals($expect, $actual);
     }
@@ -52,13 +52,13 @@ class LinkHelperTest extends Testcase
     {
         $server = $this->newServer();
 
-        $helper = new LinkHelper($server);
+        $link = new LinkHelper($server);
 
-        $actual = $helper->isCurrent('/');
+        $actual = $link->isActive('/');
 
         $this->assertTrue($actual);
 
-        $actual = $helper->isCurrent('/other');
+        $actual = $link->isActive('/other');
 
         $this->assertFalse($actual);
     }

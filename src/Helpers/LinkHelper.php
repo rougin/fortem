@@ -2,12 +2,14 @@
 
 namespace Rougin\Fortem\Helpers;
 
+use Staticka\Helper\HelperInterface;
+
 /**
  * @package Fortem
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
-class LinkHelper
+class LinkHelper implements HelperInterface
 {
     /**
      * @var string|null
@@ -30,11 +32,11 @@ class LinkHelper
     /**
      * @return string
      */
-    public function getCurrent()
+    public function __toString()
     {
         $uri = '';
 
-        if (array_key_exists('REQUEST_URI', $this->server))
+        if ($this->exists('REQUEST_URI'))
         {
             $uri = $this->server['REQUEST_URI'];
         }
@@ -47,20 +49,30 @@ class LinkHelper
      *
      * @return boolean
      */
-    public function isCurrent($link)
+    public function isActive($link)
     {
+        $url = $this->__toString();
+
         $isMain = $link === '/';
 
         $link = $this->set($link);
 
-        $current = $this->getCurrent();
-
         if (! $isMain)
         {
-            return strpos($current, $link) !== false;
+            return strpos($url, $link) !== false;
         }
 
-        return $current === $link;
+        return $url === $link;
+    }
+
+    /**
+     * Returns the name of the helper.
+     *
+     * @return string
+     */
+    public function name()
+    {
+        return 'url';
     }
 
     /**
@@ -77,6 +89,7 @@ class LinkHelper
 
     /**
      * @param string $base
+     *
      * @return self
      */
     public function setBase($base)
@@ -84,6 +97,16 @@ class LinkHelper
         $this->base = $base;
 
         return $this;
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return boolean
+     */
+    protected function exists($key)
+    {
+        return array_key_exists($key, $this->server);
     }
 
     /**
@@ -98,12 +121,12 @@ class LinkHelper
             $this->server['HTTP_HOST'] = $this->base;
         }
 
-        if (array_key_exists('HTTP_HOST', $this->server))
+        if ($this->exists('HTTP_HOST'))
         {
             $base .= $this->server['HTTP_HOST'];
         }
 
-        $exists = array_key_exists('HTTPS', $this->server);
+        $exists = $this->exists('HTTPS');
 
         return ($exists ? 'https' : 'http') . $base;
     }

@@ -18,11 +18,7 @@ $ composer require rougin/fortem
 
 ## Basic usage
 
-`Fortem` provides the following helpers for creating HTML templates:
-
-### Form Helper
-
-The `FormHelper` class is the primary way to generate form-related HTML elements. It provides a fluent interface for creating labels, inputs, buttons, select dropdowns, and error messages:
+The `FormHelper` class is used for generating form-related HTML elements. It provides a fluent interface for creating labels, inputs, buttons, select dropdowns, and error messages:
 
 ``` php
 use Rougin\Fortem\Helpers\FormHelper;
@@ -32,7 +28,7 @@ $form = new FormHelper;
 // ...
 ```
 
-### Labels
+## Labels
 
 To create a `<label>` element, the `label` method is used:
 
@@ -76,7 +72,7 @@ echo $form->label('Name')->asRequired();
 <label>Name <span class="text-danger">*</span></label>
 ```
 
-### Inputs
+## Inputs
 
 To create an `<input>` element, the `input` method is used. By default, it creates a `text` input:
 
@@ -132,7 +128,7 @@ echo $form->input('age')->asNumber();
 <input type="number" name="age">
 ```
 
-### Buttons
+## Buttons
 
 To create a `<button>` element, the `button` method is used:
 
@@ -176,7 +172,7 @@ echo $form->button('Submit')->withType('submit');
 <button type="submit">Submit</button>
 ```
 
-### Select dropdowns
+## Select dropdowns
 
 To create a `<select>` element, the `select` method is used. An array of items can be passed to populate the options:
 
@@ -215,7 +211,7 @@ echo $form->select('gender', $items);
 </select>
 ```
 
-### Error messages
+## Error messages
 
 The `error` method is used to create a placeholder for validation error messages:
 
@@ -236,7 +232,7 @@ echo $form->error('error.name');
 > [!NOTE]
 > This is only works when integrated in `alpinejs`.
 
-### Integration to `alpinejs`
+## Integration to `alpinejs`
 
 `Fortem` provides several methods for seamless integration with [alpinejs](https://alpinejs.dev/).
 
@@ -294,7 +290,7 @@ echo $form->button('Submit')->onClick('submitForm');
 <button type="button" @click="submitForm">Submit</button>
 ```
 
-### Scripts
+## Scripts
 
 The `script` method helps create a JavaScript object from PHP. This is useful for initializing data for `alpinejs`:
 
@@ -316,7 +312,7 @@ echo $form->script('data')
 </script>
 ```
 
-### Link Helper
+## Link Helper
 
 The `LinkHelper` class helps in generating and checking URLs:
 
@@ -329,13 +325,25 @@ $server['REQUEST_URI'] = '/';
 
 $link = new LinkHelper($server);
 
-echo $link->getCurrent();
+echo $link; // http://localhost/
 ```
 
-Use the `isCurrent` method to check if a given link is the current URL:
+Use the `isActive` method to check if a given link is the current URL:
 
 ``` php
-$current = $link->isCurrent('/');
+$current = $link->isActive('/'); // true
+```
+
+If `HTTP_HOST` is not available, the `setBase` method can be used:
+
+``` php
+use Rougin\Fortem\Helpers\LinkHelper;
+
+$link = new LinkHelper(array());
+
+$link->setBase('roug.in')
+
+echo $link; // http://roug.in/
 ```
 
 ## Change log
