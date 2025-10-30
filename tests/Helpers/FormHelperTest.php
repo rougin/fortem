@@ -166,6 +166,8 @@ class FormHelperTest extends Testcase
 
         $actual = $form->withAlpine();
 
+        // TODO: Improve logic of this unit test
+
         $this->assertInstanceOf($expect, $actual);
     }
 
@@ -178,7 +180,9 @@ class FormHelperTest extends Testcase
 
         $expect = 'Rougin\Fortem\Helpers\FormHelper';
 
-        $actual = $form->withoutAlpine();
+        $actual = $form->noAlpine();
+
+        // TODO: Improve logic of this unit test
 
         $this->assertInstanceOf($expect, $actual);
     }

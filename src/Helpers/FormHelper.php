@@ -100,6 +100,16 @@ class FormHelper implements HelperInterface
     }
 
     /**
+     * @return self
+     */
+    public function noAlpine()
+    {
+        $this->alpine = false;
+
+        return $this;
+    }
+
+    /**
      * @param string $name
      *
      * @return \Rougin\Fortem\Script
@@ -149,16 +159,6 @@ class FormHelper implements HelperInterface
     public function withAlpine()
     {
         $this->alpine = true;
-
-        return $this;
-    }
-
-    /**
-     * @return self
-     */
-    public function withoutAlpine()
-    {
-        $this->alpine = false;
 
         return $this;
     }
