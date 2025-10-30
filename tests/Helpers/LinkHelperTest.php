@@ -14,13 +14,29 @@ class LinkHelperTest extends Testcase
     /**
      * @return void
      */
+    public function test_different_base_url()
+    {
+        $server = $this->newServer();
+
+        $helper = new LinkHelper($server);
+
+        $expect = 'http://roug.in/';
+
+        $helper->setBase('roug.in');
+
+        $actual = $helper->getCurrent();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
     public function test_get_current()
     {
         $server = $this->newServer();
 
-        $link = 'http://localhost';
-
-        $helper = new LinkHelper($link, $server);
+        $helper = new LinkHelper($server);
 
         $expect = 'http://localhost/';
 
@@ -36,9 +52,7 @@ class LinkHelperTest extends Testcase
     {
         $server = $this->newServer();
 
-        $link = 'http://localhost';
-
-        $helper = new LinkHelper($link, $server);
+        $helper = new LinkHelper($server);
 
         $actual = $helper->isCurrent('/');
 

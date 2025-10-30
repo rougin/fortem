@@ -321,9 +321,7 @@ $server = array();
 $server['HTTP_HOST'] = 'localhost';
 $server['REQUEST_URI'] = '/';
 
-$link = 'http://localhost';
-
-$link = new LinkHelper($link, $server);
+$link = new LinkHelper($server);
 
 echo $link->getCurrent();
 ```
