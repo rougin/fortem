@@ -32,7 +32,7 @@ $ composer require rougin/fortem
 
 ## Basic usage
 
-The `FormHelper` class is used for generating form-related HTML elements. It provides a fluent interface for creating labels, inputs, buttons, select dropdowns, and error messages:
+The `FormHelper` class provides an interface for creating labels, inputs, buttons, select dropdowns, and error messages:
 
 ``` php
 // index.php
@@ -41,7 +41,48 @@ use Rougin\Fortem\Helpers\FormHelper;
 
 $form = new FormHelper;
 
-// ...
+echo $form->label('Name');
+```
+
+``` html
+<label>Name</label>
+```
+
+> [!NOTE]
+> See the next sections for the documentation of the abovementioned elements.
+
+The `LinkHelper` class helps in generating and checking URLs to the template:
+
+``` php
+use Rougin\Fortem\Helpers\LinkHelper;
+
+$server = array();
+$server['HTTP_HOST'] = 'localhost';
+$server['REQUEST_URI'] = '/';
+
+$link = new LinkHelper($server);
+
+echo $link; // http://localhost/
+```
+
+Use the `isActive` method to check if a given link is the current URL:
+
+``` php
+$current = $link->isActive('/'); // true
+```
+
+If `HTTP_HOST` is not available, the `setBase` method can be used:
+
+``` php
+use Rougin\Fortem\Helpers\LinkHelper;
+
+$data = /** instaceof $_SERVER */;
+
+$link = new LinkHelper($data);
+
+$link->setBase('roug.in')
+
+echo $link; // http://roug.in/
 ```
 
 ## Labels
@@ -49,10 +90,6 @@ $form = new FormHelper;
 To create a `<label>` element, the `label` method is used:
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->label('Name');
 ```
 
@@ -63,10 +100,6 @@ echo $form->label('Name');
 The `class` attribute can be specified using `withClass`:
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->label('Name')->withClass('form-label');
 ```
 
@@ -77,10 +110,6 @@ echo $form->label('Name')->withClass('form-label');
 A label can also be marked as required, which adds a red asterisk:
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->label('Name')->asRequired();
 ```
 
@@ -93,10 +122,6 @@ echo $form->label('Name')->asRequired();
 To create an `<input>` element, the `input` method is used. By default, it creates a `text` input:
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->input('name');
 ```
 
@@ -107,10 +132,6 @@ echo $form->input('name');
 Same from `label`, use `withClass` for the `class` attribute:
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->input('name')->withClass('form-control');
 ```
 
@@ -121,10 +142,6 @@ echo $form->input('name')->withClass('form-control');
 The input type can be changed using the `withType` method or the convenient `asEmail` and `asNumber` methods:
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->input('email')->asEmail();
 ```
 
@@ -133,10 +150,6 @@ echo $form->input('email')->asEmail();
 ```
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->input('age')->asNumber();
 ```
 
@@ -149,10 +162,6 @@ echo $form->input('age')->asNumber();
 To create a `<button>` element, the `button` method is used:
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->button('Submit');
 ```
 
@@ -163,10 +172,6 @@ echo $form->button('Submit');
 Use `withClass` method for specifying its `class` attribute:
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->button('Submit')->withClass('btn btn-primary');
 ```
 
@@ -177,10 +182,6 @@ echo $form->button('Submit')->withClass('btn btn-primary');
 The button type can be changed using the `withType` method:
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->button('Submit')->withType('submit');
 ```
 
@@ -193,10 +194,6 @@ echo $form->button('Submit')->withType('submit');
 To create a `<select>` element, the `select` method is used. An array of items can be passed to populate the options:
 
 ``` php
-// index.php
-
-// ...
-
 $items = array('Male', 'Female');
 
 echo $form->select('gender', $items);
@@ -232,10 +229,6 @@ echo $form->select('gender', $items);
 The `error` method is used to create a placeholder for validation error messages:
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->error('error.name');
 ```
 
@@ -250,15 +243,11 @@ echo $form->error('error.name');
 
 ## Using `alpinejs`
 
-`Fortem` provides several methods for seamless integration with [alpinejs](https://alpinejs.dev/).
+`Fortem` provides methods for seamless integration with [alpinejs](https://alpinejs.dev/).
 
-From `Input` and `Select` classes, the `asModel` method adds the `x-model` attribute to an input or select element, binding its value to its variable:
+For `Input` and `Select` classes, the `asModel` method adds an `x-model` attribute to the element, binding its value to its variable:
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->input('name')->asModel();
 ```
 
@@ -267,10 +256,6 @@ echo $form->input('name')->asModel();
 ```
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->select('gender', $items)->asModel();
 ```
 
@@ -278,13 +263,9 @@ echo $form->select('gender', $items)->asModel();
 <select name="gender" x-model="gender">...</select>
 ```
 
-In all elements, the `disablesOn` method adds the `:disabled` attribute, allowing an element to be disabled based on its variable:
+In all elements, the `disablesOn` method adds the `:disabled` attribute, allowing an element to be disabled based on its condition:
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->input('name')->disablesOn('loading');
 ```
 
@@ -292,13 +273,9 @@ echo $form->input('name')->disablesOn('loading');
 <input type="text" name="name" :disabled="loading">
 ```
 
-From the `Button` class, the `onClick` method adds the `@click` attribute to a button, executing its function on click:
+For the `Button` class, the `onClick` method adds the `@click` attribute to a button, executing its function on click:
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->button('Submit')->onClick('submitForm');
 ```
 
@@ -308,13 +285,9 @@ echo $form->button('Submit')->onClick('submitForm');
 
 ## Scripts
 
-The `script` method helps create a JavaScript object from PHP. This is useful for initializing data for `alpinejs`:
+The `script` method helps create a JavaScript object from PHP which is useful for initializing data for `alpinejs`:
 
 ``` php
-// index.php
-
-// ...
-
 echo $form->script('data')
   ->with('name', 'John Doe')
   ->with('age', 30)
@@ -326,42 +299,6 @@ echo $form->script('data')
 <script>
   let data = {"name":"John Doe","age":30,"loading":false,"error":{}};
 </script>
-```
-
-## Link Helper
-
-The `LinkHelper` class helps in generating and checking URLs:
-
-``` php
-use Rougin\Fortem\Helpers\LinkHelper;
-
-$server = array();
-$server['HTTP_HOST'] = 'localhost';
-$server['REQUEST_URI'] = '/';
-
-$link = new LinkHelper($server);
-
-echo $link; // http://localhost/
-```
-
-Use the `isActive` method to check if a given link is the current URL:
-
-``` php
-$current = $link->isActive('/'); // true
-```
-
-If `HTTP_HOST` is not available, the `setBase` method can be used:
-
-``` php
-use Rougin\Fortem\Helpers\LinkHelper;
-
-$data = /** instaceof $_SERVER */;
-
-$link = new LinkHelper($data);
-
-$link->setBase('roug.in')
-
-echo $link; // http://roug.in/
 ```
 
 ## Changelog
