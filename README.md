@@ -6,7 +6,21 @@
 [![Coverage Status][ico-coverage]][link-coverage]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-A collection of form template helpers for PHP.
+A collection of form templates for PHP with full support for [alpinejs](https://alpinejs.dev/) properties.
+
+``` php
+<div>
+  <?= $form->label('Name')->asRequired() ?>
+  <?= $form->input('name')->asModel() ?>
+</div>
+<div>
+  <?= $form->label('Description')->asRequired() ?>
+  <?= $form->input('detail')->asModel() ?>
+</div>
+<div>
+  <?= $form->button('Update')->onClick('update(id)') ?>
+</div>
+```
 
 ## Installation
 
@@ -21,6 +35,8 @@ $ composer require rougin/fortem
 The `FormHelper` class is used for generating form-related HTML elements. It provides a fluent interface for creating labels, inputs, buttons, select dropdowns, and error messages:
 
 ``` php
+// index.php
+
 use Rougin\Fortem\Helpers\FormHelper;
 
 $form = new FormHelper;
@@ -33,7 +49,7 @@ $form = new FormHelper;
 To create a `<label>` element, the `label` method is used:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
@@ -44,14 +60,14 @@ echo $form->label('Name');
 <label>Name</label>
 ```
 
-The `class` attribute can be specified in its second argument:
+The `class` attribute can be specified using `withClass`:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
-echo $form->label('Name', 'form-label');
+echo $form->label('Name')->withClass('form-label');
 ```
 
 ``` html
@@ -61,7 +77,7 @@ echo $form->label('Name', 'form-label');
 A label can also be marked as required, which adds a red asterisk:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
@@ -77,7 +93,7 @@ echo $form->label('Name')->asRequired();
 To create an `<input>` element, the `input` method is used. By default, it creates a `text` input:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
@@ -88,14 +104,14 @@ echo $form->input('name');
 <input type="text" name="name">
 ```
 
-Same from `label`, its second argument is for the `class` attribute:
+Same from `label`, use `withClass` for the `class` attribute:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
-echo $form->input('name', 'form-control');
+echo $form->input('name')->withClass('form-control');
 ```
 
 ``` html
@@ -105,7 +121,7 @@ echo $form->input('name', 'form-control');
 The input type can be changed using the `withType` method or the convenient `asEmail` and `asNumber` methods:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
@@ -117,7 +133,7 @@ echo $form->input('email')->asEmail();
 ```
 
 ``` php
-<?php
+// index.php
 
 // ...
 
@@ -133,7 +149,7 @@ echo $form->input('age')->asNumber();
 To create a `<button>` element, the `button` method is used:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
@@ -144,14 +160,14 @@ echo $form->button('Submit');
 <button type="button">Submit</button>
 ```
 
-Use the second argument for specifying its `class` attribute:
+Use `withClass` method for specifying its `class` attribute:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
-echo $form->button('Submit', 'btn btn-primary');
+echo $form->button('Submit')->withClass('btn btn-primary');
 ```
 
 ``` html
@@ -161,7 +177,7 @@ echo $form->button('Submit', 'btn btn-primary');
 The button type can be changed using the `withType` method:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
@@ -177,7 +193,7 @@ echo $form->button('Submit')->withType('submit');
 To create a `<select>` element, the `select` method is used. An array of items can be passed to populate the options:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
@@ -216,7 +232,7 @@ echo $form->select('gender', $items);
 The `error` method is used to create a placeholder for validation error messages:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
@@ -239,7 +255,7 @@ echo $form->error('error.name');
 The `asModel` method adds the `x-model` attribute to an input or select element, binding its value to its variable:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
@@ -251,7 +267,7 @@ echo $form->input('name')->asModel();
 ```
 
 ``` php
-<?php
+// index.php
 
 // ...
 
@@ -265,7 +281,7 @@ echo $form->select('gender', $items)->asModel();
 The `disablesOn` method adds the `:disabled` attribute, allowing an element to be disabled based on its variable:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
@@ -279,7 +295,7 @@ echo $form->input('name')->disablesOn('loading');
 The `onClick` method adds the `@click` attribute to a button, executing its function on click:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
@@ -295,7 +311,7 @@ echo $form->button('Submit')->onClick('submitForm');
 The `script` method helps create a JavaScript object from PHP. This is useful for initializing data for `alpinejs`:
 
 ``` php
-<?php
+// index.php
 
 // ...
 
@@ -308,7 +324,7 @@ echo $form->script('data')
 
 ``` html
 <script>
-    let data = {"name":"John Doe","age":30,"loading":false,"error":{}};
+  let data = {"name":"John Doe","age":30,"loading":false,"error":{}};
 </script>
 ```
 
@@ -339,20 +355,22 @@ If `HTTP_HOST` is not available, the `setBase` method can be used:
 ``` php
 use Rougin\Fortem\Helpers\LinkHelper;
 
-$link = new LinkHelper(array());
+$data = /** instaceof $_SERVER */;
+
+$link = new LinkHelper($data);
 
 $link->setBase('roug.in')
 
 echo $link; // http://roug.in/
 ```
 
-## Change log
+## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more recent changes.
+Please see [CHANGELOG][link-changelog] for more recent changes.
 
 ## Contributing
 
-See [CONTRIBUTING](CONTRIBUTING.md) on how to contribute.
+See [CONTRIBUTING][link-contributing] on how to contribute to the project.
 
 ## License
 
@@ -367,7 +385,6 @@ The MIT License (MIT). Please see [LICENSE][link-license] for more information.
 [link-build]: https://github.com/rougin/fortem/actions
 [link-changelog]: https://github.com/rougin/fortem/blob/master/CHANGELOG.md
 [link-contributing]: https://github.com/rougin/fortem/blob/master/CONTRIBUTING.md
-[link-contributors]: https://github.com/rougin/fortem/contributors
 [link-coverage]: https://app.codecov.io/gh/rougin/fortem
 [link-downloads]: https://packagist.org/packages/rougin/fortem
 [link-license]: https://github.com/rougin/fortem/blob/master/LICENSE.md
