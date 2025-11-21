@@ -37,21 +37,21 @@ class Error
      */
     public function __toString()
     {
-        $html = '';
+        $html = '<template x-if="' . $this->field . '">';
 
-        $html .= '<template x-if="' . $this->field . '">';
+        $field = $this->field;
 
-        if ($this->first)
+        if (! $this->first)
         {
-            $html .= '<p class="text-danger small mb-0" x-text="' . $this->field . '"></p>';
-        }
-        else
-        {
-            $html .= '<p class="text-danger small mb-0" x-text="' . $this->field . '[0]"></p>';
+            $field = $this->field . '[0]';
         }
 
-        $html .= '</template>';
+        // TODO: Use "StyleInterface" ----
+        $class = 'text-danger small mb-0';
+        // -------------------------------
 
-        return $html;
+        $html .= '<p class="' . $class . '" x-text="' . $field . '"></p>';
+
+        return $html . '</template>';
     }
 }

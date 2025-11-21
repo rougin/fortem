@@ -18,23 +18,9 @@ class ElementTest extends Testcase
 
         $el = new Element;
 
+        $el->withAlpine();
+
         $el->disablesOn('loading');
-
-        $actual = $el->getAttrs();
-
-        $this->assertEquals($expect, $actual);
-    }
-
-    /**
-     * @return void
-     */
-    public function test_with()
-    {
-        $expect = 'data-test="value"';
-
-        $el = new Element;
-
-        $el->with('data-test', 'value');
 
         $actual = $el->getAttrs();
 
@@ -60,6 +46,22 @@ class ElementTest extends Testcase
     /**
      * @return void
      */
+    public function test_with_custom_attr()
+    {
+        $expect = 'data-test="value"';
+
+        $el = new Element;
+
+        $el->with('data-test', 'value');
+
+        $actual = $el->getAttrs();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
     public function test_with_id()
     {
         $expect = 'id="my-id"';
@@ -71,5 +73,17 @@ class ElementTest extends Testcase
         $actual = $el->getAttrs();
 
         $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_without_alpine()
+    {
+        $this->doExpectException('Exception');
+
+        $el = new Element;
+
+        $el->disablesOn('loading');
     }
 }

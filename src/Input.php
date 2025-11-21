@@ -44,15 +44,18 @@ class Input extends Element
     }
 
     /**
-     * NOTE: This is a specific code for "alpinejs".
-     *
-     * @param string|null $name
-     *
      * @return self
      */
-    public function asModel($name = null)
+    public function asModel()
     {
-        return $this->with('x-model', $name ? $name : $this->attrs['name']);
+        if (! $this->alpine)
+        {
+            throw new \Exception('"alpinejs" disabled');
+        }
+
+        $name = $this->attrs['name'];
+
+        return $this->with('x-model', $name);
     }
 
     /**

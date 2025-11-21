@@ -26,7 +26,9 @@ class FormHelperTest extends Testcase
 
         $expect = '<button type="button" class="btn btn-primary">Submit</button>';
 
-        $actual = $form->button('Submit', 'btn btn-primary');
+        $actual = $form->button('Submit');
+
+        $actual->withClass('btn btn-primary');
 
         $this->assertEquals($expect, $actual);
     }
@@ -38,11 +40,25 @@ class FormHelperTest extends Testcase
     {
         $form = new FormHelper;
 
+        $form->withAlpine();
+
         $expect = '<template x-if="error.name"><p class="text-danger small mb-0" x-text="error.name[0]"></p></template>';
 
         $actual = $form->error('error.name');
 
         $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_error_without_alpine()
+    {
+        $this->doExpectException('Exception');
+
+        $form = new FormHelper;
+
+        $form->error('error.name');
     }
 
     /**
@@ -60,7 +76,9 @@ class FormHelperTest extends Testcase
 
         $expect = '<input type="text" name="name" class="form-control">';
 
-        $actual = $form->input('name', 'form-control');
+        $actual = $form->input('name');
+
+        $actual->withClass('form-control');
 
         $this->assertEquals($expect, $actual);
     }
@@ -80,7 +98,9 @@ class FormHelperTest extends Testcase
 
         $expect = '<label class="form-label">Name</label>';
 
-        $actual = $form->label('Name', 'form-label');
+        $actual = $form->label('Name');
+
+        $actual->withClass('form-label');
 
         $this->assertEquals($expect, $actual);
     }
@@ -108,9 +128,25 @@ class FormHelperTest extends Testcase
 
         $form = new FormHelper;
 
+        $form->withAlpine();
+
         $actual = $form->script('data');
 
         $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_script_without_alpine()
+    {
+        $this->doExpectException('Exception');
+
+        $form = new FormHelper;
+
+        $form->noAlpine();
+
+        $form->script('data');
     }
 
     /**
@@ -150,40 +186,10 @@ class FormHelperTest extends Testcase
 
         $items = array('Male', 'Female');
 
-        $actual = $form->select('gender', $items, 'form-select');
+        $actual = $form->select('gender', $items);
+
+        $actual->withClass('form-select');
 
         $this->assertEquals($expect, $actual);
-    }
-
-    /**
-     * @return void
-     */
-    public function test_with_alpine()
-    {
-        $form = new FormHelper;
-
-        $expect = 'Rougin\Fortem\Helpers\FormHelper';
-
-        $actual = $form->withAlpine();
-
-        // TODO: Improve logic of this unit test
-
-        $this->assertInstanceOf($expect, $actual);
-    }
-
-    /**
-     * @return void
-     */
-    public function test_without_alpine()
-    {
-        $form = new FormHelper;
-
-        $expect = 'Rougin\Fortem\Helpers\FormHelper';
-
-        $actual = $form->noAlpine();
-
-        // TODO: Improve logic of this unit test
-
-        $this->assertInstanceOf($expect, $actual);
     }
 }

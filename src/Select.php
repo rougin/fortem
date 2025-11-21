@@ -15,6 +15,11 @@ class Select extends Element
     protected $items = array();
 
     /**
+     * @var string
+     */
+    protected $placeholder = 'Please select';
+
+    /**
      * @param string $name
      */
     public function __construct($name)
@@ -29,7 +34,9 @@ class Select extends Element
     {
         $html = '<select ' . $this->getAttrs() . '>';
 
-        $html .= '<option value="">Please select</option>';
+        $text = $this->placeholder;
+
+        $html .= '<option value="">' . $text . '</option>';
 
         foreach ($this->items as $item)
         {
@@ -40,15 +47,18 @@ class Select extends Element
     }
 
     /**
-     * NOTE: This is a specific code for "alpinejs".
-     *
-     * @param string|null $name
-     *
      * @return self
      */
-    public function asModel($name = null)
+    public function asModel()
     {
-        return $this->with('x-model', $name ? $name : $this->attrs['name']);
+        if (! $this->alpine)
+        {
+            throw new \Exception('"alpinejs" disabled');
+        }
+
+        $name = $this->attrs['name'];
+
+        return $this->with('x-model', $name);
     }
 
     /**
@@ -71,5 +81,17 @@ class Select extends Element
     public function withName($name)
     {
         return $this->with('name', $name);
+    }
+
+    /**
+     * @param string $text
+     *
+     * @return self
+     */
+    public function withPlaceholder($text)
+    {
+        $this->placeholder = $text;
+
+        return $this;
     }
 }

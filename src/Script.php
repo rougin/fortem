@@ -3,8 +3,6 @@
 namespace Rougin\Fortem;
 
 /**
- * NOTE: This is a specific code for "alpinejs".
- *
  * @package Fortem
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
@@ -49,14 +47,14 @@ class Script
     }
 
     /**
-     * @param string     $field
-     * @param mixed|null $default
+     * @param string $field
+     * @param mixed  $value
      *
      * @return self
      */
-    public function with($field, $default = null)
+    public function with($field, $value)
     {
-        $this->fields[$field] = $default;
+        $this->fields[$field] = $value;
 
         return $this;
     }

@@ -14,24 +14,6 @@ class LinkHelperTest extends Testcase
     /**
      * @return void
      */
-    public function test_different_base_url()
-    {
-        $server = $this->newServer();
-
-        $link = new LinkHelper($server);
-
-        $expect = 'http://roug.in/';
-
-        $link->setBase('roug.in');
-
-        $actual = $link->__toString();
-
-        $this->assertEquals($expect, $actual);
-    }
-
-    /**
-     * @return void
-     */
     public function test_get_current()
     {
         $server = $this->newServer();
@@ -41,6 +23,22 @@ class LinkHelperTest extends Testcase
         $expect = 'http://localhost/';
 
         $actual = $link->__toString();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_get_name()
+    {
+        $server = $this->newServer();
+
+        $link = new LinkHelper($server);
+
+        $expect = 'url';
+
+        $actual = $link->name();
 
         $this->assertEquals($expect, $actual);
     }
@@ -64,6 +62,24 @@ class LinkHelperTest extends Testcase
     }
 
     /**
+     * @return void
+     */
+    public function test_other_base_url()
+    {
+        $server = $this->newServer();
+
+        $link = new LinkHelper($server);
+
+        $expect = 'http://roug.in/';
+
+        $link->setBase('roug.in');
+
+        $actual = $link->__toString();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
      * @return array<string, string>
      */
     protected function newServer()
@@ -76,4 +92,5 @@ class LinkHelperTest extends Testcase
 
         return $server;
     }
+
 }

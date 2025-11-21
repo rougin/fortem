@@ -39,6 +39,11 @@ class Button extends Element
      */
     public function onClick($name)
     {
+        if (! $this->alpine)
+        {
+            throw new \Exception('"alpinejs" disabled');
+        }
+
         return $this->with('@click', $name);
     }
 

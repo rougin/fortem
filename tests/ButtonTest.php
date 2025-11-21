@@ -12,7 +12,23 @@ class ButtonTest extends Testcase
     /**
      * @return void
      */
-    public function test_button_can_be_created()
+    public function test_on_click()
+    {
+        $expect = '<button type="button" @click="submitForm">Submit</button>';
+
+        $actual = new Button('Submit');
+
+        $actual->withAlpine();
+
+        $actual->onClick('submitForm');
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_simple_button()
     {
         $expect = '<button type="button">Submit</button>';
 
@@ -24,7 +40,7 @@ class ButtonTest extends Testcase
     /**
      * @return void
      */
-    public function test_button_with_class()
+    public function test_with_class()
     {
         $expect = '<button type="button" class="btn btn-primary">Submit</button>';
 
@@ -38,7 +54,7 @@ class ButtonTest extends Testcase
     /**
      * @return void
      */
-    public function test_button_with_type()
+    public function test_with_type()
     {
         $expect = '<button type="submit">Submit</button>';
 
@@ -52,14 +68,12 @@ class ButtonTest extends Testcase
     /**
      * @return void
      */
-    public function test_button_on_click()
+    public function test_without_alpine()
     {
-        $expect = '<button type="button" @click="submitForm">Submit</button>';
+        $this->doExpectException('Exception');
 
         $actual = new Button('Submit');
 
         $actual->onClick('submitForm');
-
-        $this->assertEquals($expect, $actual);
     }
 }

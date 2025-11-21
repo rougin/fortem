@@ -248,11 +248,11 @@ echo $form->error('error.name');
 > [!NOTE]
 > This is only works when integrated in `alpinejs`.
 
-## Integration to `alpinejs`
+## Using `alpinejs`
 
 `Fortem` provides several methods for seamless integration with [alpinejs](https://alpinejs.dev/).
 
-The `asModel` method adds the `x-model` attribute to an input or select element, binding its value to its variable:
+From `Input` and `Select` classes, the `asModel` method adds the `x-model` attribute to an input or select element, binding its value to its variable:
 
 ``` php
 // index.php
@@ -278,7 +278,7 @@ echo $form->select('gender', $items)->asModel();
 <select name="gender" x-model="gender">...</select>
 ```
 
-The `disablesOn` method adds the `:disabled` attribute, allowing an element to be disabled based on its variable:
+In all elements, the `disablesOn` method adds the `:disabled` attribute, allowing an element to be disabled based on its variable:
 
 ``` php
 // index.php
@@ -292,7 +292,7 @@ echo $form->input('name')->disablesOn('loading');
 <input type="text" name="name" :disabled="loading">
 ```
 
-The `onClick` method adds the `@click` attribute to a button, executing its function on click:
+From the `Button` class, the `onClick` method adds the `@click` attribute to a button, executing its function on click:
 
 ``` php
 // index.php
@@ -316,10 +316,10 @@ The `script` method helps create a JavaScript object from PHP. This is useful fo
 // ...
 
 echo $form->script('data')
-    ->with('name', 'John Doe')
-    ->with('age', 30)
-    ->withLoading()
-    ->withError();
+  ->with('name', 'John Doe')
+  ->with('age', 30)
+  ->withLoading()
+  ->withError();
 ```
 
 ``` html

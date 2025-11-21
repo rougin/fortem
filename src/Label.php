@@ -36,9 +36,13 @@ class Label extends Element
 
         $text = $this->text;
 
+        // TODO: Use "StyleInterface" ---
+        $class = 'text-danger';
+        // ------------------------------
+
         if ($this->required)
         {
-            $text .= ' <span class="text-danger">*</span>';
+            $text .= ' <span class="' . $class . '">*</span>';
         }
 
         $attrs = $attrs ? ' ' . $attrs : '';

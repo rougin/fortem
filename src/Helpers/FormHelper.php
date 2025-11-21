@@ -23,26 +23,20 @@ class FormHelper implements HelperInterface
     protected $alpine = false;
 
     /**
-     * @param string      $text
-     * @param string|null $class
+     * @param string $text
      *
      * @return \Rougin\Fortem\Button
      */
-    public function button($text, $class = null)
+    public function button($text)
     {
         $elem = new Button($text);
 
-        if ($class)
-        {
-            $elem->withClass($class);
-        }
+        $elem->withAlpine($this->alpine);
 
         return $elem;
     }
 
     /**
-     * NOTE: This is a specific code for "alpinejs".
-     *
      * @param string  $field
      * @param boolean $first
      *
@@ -50,43 +44,36 @@ class FormHelper implements HelperInterface
      */
     public function error($field, $first = false)
     {
+        if (! $this->alpine)
+        {
+            throw new \Exception('"alpinejs" disabled');
+        }
+
         return new Error($field, $first);
     }
 
     /**
-     * @param string      $name
-     * @param string|null $class
+     * @param string $name
      *
      * @return \Rougin\Fortem\Input
      */
-    public function input($name, $class = null)
+    public function input($name)
     {
         $elem = new Input($name);
 
-        if ($class)
-        {
-            $elem->withClass($class);
-        }
+        $elem->withAlpine($this->alpine);
 
         return $elem;
     }
 
     /**
-     * @param string      $text
-     * @param string|null $class
+     * @param string $text
      *
      * @return \Rougin\Fortem\Label
      */
-    public function label($text, $class = null)
+    public function label($text)
     {
-        $elem = new Label($text);
-
-        if ($class)
-        {
-            $elem->withClass($class);
-        }
-
-        return $elem;
+        return new Label($text);
     }
 
     /**
@@ -116,24 +103,23 @@ class FormHelper implements HelperInterface
      */
     public function script($name)
     {
+        if (! $this->alpine)
+        {
+            throw new \Exception('"alpinejs" disabled');
+        }
+
         return new Script($name);
     }
 
     /**
-     * @param string      $name
-     * @param mixed[]     $items
-     * @param string|null $class
+     * @param string  $name
+     * @param mixed[] $items
      *
      * @return \Rougin\Fortem\Select
      */
-    public function select($name, $items = array(), $class = null)
+    public function select($name, $items = array())
     {
         $elem = new Select($name);
-
-        if ($class)
-        {
-            $elem->withClass($class);
-        }
 
         $parsed = array();
 
@@ -146,10 +132,11 @@ class FormHelper implements HelperInterface
                 continue;
             }
 
-            $parsed[] = array('value' => $index, 'label' => $item);
+            $row = array('value' => $index, 'label' => $item);
+
+            $parsed[] = $row;
         }
 
-        /** @var array<string, string>[] $parsed */
         return $elem->withItems($parsed);
     }
 

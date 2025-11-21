@@ -10,19 +10,27 @@ namespace Rougin\Fortem;
 class Element
 {
     /**
+     * @var boolean
+     */
+    protected $alpine = false;
+
+    /**
      * @var array<string, mixed>
      */
     protected $attrs = array();
 
     /**
-     * NOTE: This is a specific code for "alpinejs".
-     *
      * @param string $name
      *
      * @return static
      */
     public function disablesOn($name)
     {
+        if (! $this->alpine)
+        {
+            throw new \Exception('"alpinejs" disabled');
+        }
+
         return $this->with(':disabled', $name);
     }
 
@@ -50,6 +58,18 @@ class Element
     public function with($key, $value)
     {
         $this->attrs[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @param boolean $alpine
+     *
+     * @return static
+     */
+    public function withAlpine($alpine = true)
+    {
+        $this->alpine = $alpine;
 
         return $this;
     }

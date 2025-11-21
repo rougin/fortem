@@ -12,13 +12,13 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_input_as_email()
+    public function test_as_email()
     {
         $expect = '<input type="email" name="email">';
 
-        $input = new Input('email');
+        $el = new Input('email');
 
-        $actual = $input->asEmail();
+        $actual = $el->asEmail();
 
         $this->assertEquals($expect, $actual);
     }
@@ -26,13 +26,15 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_input_as_model()
+    public function test_as_model()
     {
         $expect = '<input type="text" name="name" x-model="name">';
 
-        $input = new Input('name');
+        $el = new Input('name');
 
-        $actual = $input->asModel();
+        $el->withAlpine();
+
+        $actual = $el->asModel();
 
         $this->assertEquals($expect, $actual);
     }
@@ -40,13 +42,13 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_input_as_number()
+    public function test_as_number()
     {
         $expect = '<input type="number" name="age">';
 
-        $input = new Input('age');
+        $el = new Input('age');
 
-        $actual = $input->asNumber();
+        $actual = $el->asNumber();
 
         $this->assertEquals($expect, $actual);
     }
@@ -54,7 +56,7 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_input_can_be_created()
+    public function test_can_be_created()
     {
         $expect = '<input type="text" name="name">';
 
@@ -66,13 +68,15 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_input_disables_on()
+    public function test_disables_on()
     {
         $expect = '<input type="text" name="name" :disabled="loading">';
 
-        $input = new Input('name');
+        $el = new Input('name');
 
-        $actual = $input->disablesOn('loading');
+        $el->withAlpine();
+
+        $actual = $el->disablesOn('loading');
 
         $this->assertEquals($expect, $actual);
     }
@@ -80,14 +84,26 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_input_with_class()
+    public function test_with_class()
     {
         $expect = '<input type="text" name="name" class="form-control">';
 
-        $input = new Input('name');
+        $el = new Input('name');
 
-        $actual = $input->withClass('form-control');
+        $actual = $el->withClass('form-control');
 
         $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_without_alpine()
+    {
+        $this->doExpectException('Exception');
+
+        $el = new Input('name');
+
+        $el->asModel();
     }
 }
