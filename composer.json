@@ -1,13 +1,16 @@
 {
   "name": "rougin/fortem",
   "description": "Simple form templates in PHP.",
+  "keywords": [ "html-form", "php-form", "php-ui-kit" ],
   "homepage": "https://github.com/rougin/fortem",
   "license": "MIT",
   "authors":
   [
     {
       "email": "rougingutib@gmail.com",
-      "name": "Rougin Gutib"
+      "homepage": "https://roug.in/",
+      "name": "Rougin Gutib",
+      "role": "Software Engineer"
     }
   ],
   "require":
@@ -36,6 +39,8 @@
   },
   "scripts":
   {
+    "analyze": "phpstan analyse",
+    "restyle": "php-cs-fixer fix --config=phpstyle.php",
     "test": "phpunit"
   }
 }
