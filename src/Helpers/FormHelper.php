@@ -121,6 +121,8 @@ class FormHelper implements HelperInterface
     {
         $elem = new Select($name);
 
+        $elem->withAlpine($this->alpine);
+
         $parsed = array();
 
         foreach ($items as $index => $item)
