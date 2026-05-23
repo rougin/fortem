@@ -32,7 +32,6 @@ class Script
      */
     public function __toString()
     {
-        /** @var string */
         $data = json_encode($this->fields);
 
         return 'let ' . $this->name . ' = ' . $data . ';';

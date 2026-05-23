@@ -10,7 +10,7 @@ namespace Rougin\Fortem;
 class Select extends Element
 {
     /**
-     * @var array<string, mixed>[]
+     * @var array<string, string>[]
      */
     protected $items = array();
 
@@ -62,13 +62,25 @@ class Select extends Element
     }
 
     /**
-     * @param array<string, mixed>[] $items
+     * @param mixed[] $items
      *
      * @return self
      */
     public function withItems($items)
     {
-        $this->items = $items;
+        $parsed = array();
+
+        /** @var array<string, mixed> $item */
+        foreach ($items as $item)
+        {
+            $value = $this->toStr($item['value']);
+
+            $label = $this->toStr($item['label']);
+
+            $parsed[] = compact('value', 'label');
+        }
+
+        $this->items = $parsed;
 
         return $this;
     }
@@ -93,5 +105,21 @@ class Select extends Element
         $this->placeholder = $text;
 
         return $this;
+    }
+
+    /**
+     * @param mixed $value
+     *
+     * @return string
+     */
+    protected function toStr($value)
+    {
+        if (is_string($value))
+        {
+            return $value;
+        }
+
+        /** @phpstan-ignore-next-line */
+        return (string) $value;
     }
 }

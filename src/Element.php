@@ -15,7 +15,7 @@ class Element
     protected $alpine = false;
 
     /**
-     * @var array<string, mixed>
+     * @var array<string, string>
      */
     protected $attrs = array();
 
@@ -51,7 +51,7 @@ class Element
 
     /**
      * @param string $key
-     * @param mixed  $value
+     * @param string $value
      *
      * @return static
      */

@@ -127,6 +127,10 @@ class FormHelper implements HelperInterface
 
         foreach ($items as $index => $item)
         {
+            $label = $item;
+
+            $value = $index;
+
             if (is_array($item) && array_key_exists('value', $item))
             {
                 $parsed[] = $item;
@@ -134,9 +138,7 @@ class FormHelper implements HelperInterface
                 continue;
             }
 
-            $row = array('value' => $index, 'label' => $item);
-
-            $parsed[] = $row;
+            $parsed[] = compact('value', 'label');
         }
 
         return $elem->withItems($parsed);

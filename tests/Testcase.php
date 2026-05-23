@@ -18,6 +18,7 @@ class Testcase extends Legacy
      */
     public function doExpectException($exception)
     {
+        /** @phpstan-ignore-next-line */
         if (method_exists($this, 'expectException'))
         {
             $this->expectException($exception);
