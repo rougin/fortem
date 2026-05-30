@@ -14,9 +14,12 @@ class ErrorTest extends Testcase
     /**
      * @return void
      */
-    public function test_error_can_be_created()
+    public function test_passed_if_created()
     {
-        $expect = '<template x-if="error.name"><p class="text-danger small mb-0" x-text="error.name[0]"></p></template>';
+        $expect = '<template x-if="error.name">'
+            . '<p class="text-danger small mb-0"'
+            . ' x-text="error.name[0]">'
+            . '</p></template>';
 
         $actual = new Error('error.name');
 
@@ -26,9 +29,12 @@ class ErrorTest extends Testcase
     /**
      * @return void
      */
-    public function test_error_with_custom_style()
+    public function test_passed_if_with_custom_styling()
     {
-        $expect = '<template x-if="error.name"><p class="foo-error" x-text="error.name[0]"></p></template>';
+        $expect = '<template x-if="error.name">'
+            . '<p class="foo-error"'
+            . ' x-text="error.name[0]">'
+            . '</p></template>';
 
         $actual = new Error('error.name');
 
@@ -40,9 +46,12 @@ class ErrorTest extends Testcase
     /**
      * @return void
      */
-    public function test_to_string_with_first()
+    public function test_passed_if_with_first()
     {
-        $expect = '<template x-if="error.name"><p class="text-danger small mb-0" x-text="error.name"></p></template>';
+        $expect = '<template x-if="error.name">'
+            . '<p class="text-danger small mb-0"'
+            . ' x-text="error.name">'
+            . '</p></template>';
 
         $actual = new Error('error.name', true);
 

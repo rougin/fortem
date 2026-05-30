@@ -12,13 +12,14 @@ class ScriptTest extends Testcase
     /**
      * @return void
      */
-    public function test_get_fields()
+    public function test_passed_if_get_fields()
     {
         $expect = array('name' => 'John Doe', 'age' => 30);
 
         $script = new Script('data');
 
-        $script->with('name', 'John Doe')->with('age', 30);
+        $script->with('name', 'John Doe')
+            ->with('age', 30);
 
         $actual = $script->getFields();
 
@@ -28,7 +29,7 @@ class ScriptTest extends Testcase
     /**
      * @return void
      */
-    public function test_script_with()
+    public function test_passed_if_with()
     {
         $expect = 'let config = {"key":"value"};';
 
@@ -44,7 +45,7 @@ class ScriptTest extends Testcase
     /**
      * @return void
      */
-    public function test_script_with_error()
+    public function test_passed_if_with_error()
     {
         $expect = 'let app = {"error":{}};';
 
@@ -60,7 +61,7 @@ class ScriptTest extends Testcase
     /**
      * @return void
      */
-    public function test_script_with_loading()
+    public function test_passed_if_with_loading()
     {
         $expect = 'let app = {"loading":false};';
 
@@ -74,9 +75,11 @@ class ScriptTest extends Testcase
     /**
      * @return void
      */
-    public function test_script_with_multiple_methods()
+    public function test_passed_if_with_multiple()
     {
-        $expect = 'let data = {"error":{},"name":"John Doe","age":30,"loading":false};';
+        $expect = 'let data ='
+            . ' {"error":{},"name":"John Doe",'
+            . '"age":30,"loading":false};';
 
         $script = new Script('data');
 

@@ -14,7 +14,19 @@ class SelectTest extends Testcase
     /**
      * @return void
      */
-    public function test_as_model()
+    public function test_failed_if_without_alpine()
+    {
+        $this->doExpectException('Exception');
+
+        $el = new Select('gender');
+
+        $el->withItems(array())->asModel();
+    }
+
+    /**
+     * @return void
+     */
+    public function test_passed_if_as_model()
     {
         $items = array('Male', 'Female');
 
@@ -25,7 +37,13 @@ class SelectTest extends Testcase
             $parsed[] = compact('value', 'label');
         }
 
-        $expect = '<select name="gender" x-model="gender" class="form-select"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
+        $expect = '<select name="gender"'
+            . ' x-model="gender"'
+            . ' class="form-select">'
+            . '<option value="">Please select</option>'
+            . '<option value="0">Male</option>'
+            . '<option value="1">Female</option>'
+            . '</select>';
 
         $el = new Select('gender');
 
@@ -41,7 +59,7 @@ class SelectTest extends Testcase
     /**
      * @return void
      */
-    public function test_no_style()
+    public function test_passed_if_no_styling()
     {
         $items = array('Male', 'Female');
 
@@ -52,7 +70,11 @@ class SelectTest extends Testcase
             $parsed[] = compact('value', 'label');
         }
 
-        $expect = '<select name="gender"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
+        $expect = '<select name="gender">'
+            . '<option value="">Please select</option>'
+            . '<option value="0">Male</option>'
+            . '<option value="1">Female</option>'
+            . '</select>';
 
         $el = new Select('gender');
 
@@ -66,7 +88,7 @@ class SelectTest extends Testcase
     /**
      * @return void
      */
-    public function test_no_style_with_class()
+    public function test_passed_if_no_styling_class()
     {
         $items = array('Male', 'Female');
 
@@ -77,7 +99,12 @@ class SelectTest extends Testcase
             $parsed[] = compact('value', 'label');
         }
 
-        $expect = '<select name="gender" class="is-invalid"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
+        $expect = '<select name="gender"'
+            . ' class="is-invalid">'
+            . '<option value="">Please select</option>'
+            . '<option value="0">Male</option>'
+            . '<option value="1">Female</option>'
+            . '</select>';
 
         $el = new Select('gender');
 
@@ -91,11 +118,18 @@ class SelectTest extends Testcase
     /**
      * @return void
      */
-    public function test_with_assoc_array()
+    public function test_passed_if_with_assoc_array()
     {
-        $items = array(array('value' => 'm', 'label' => 'Male'), array('value' => 'f', 'label' => 'Female'));
+        $items = array(
+            array('value' => 'm', 'label' => 'Male'),
+            array('value' => 'f', 'label' => 'Female'));
 
-        $expect = '<select name="gender" class="form-select"><option value="">Please select</option><option value="m">Male</option><option value="f">Female</option></select>';
+        $expect = '<select name="gender"'
+            . ' class="form-select">'
+            . '<option value="">Please select</option>'
+            . '<option value="m">Male</option>'
+            . '<option value="f">Female</option>'
+            . '</select>';
 
         $el = new Select('gender');
 
@@ -107,7 +141,7 @@ class SelectTest extends Testcase
     /**
      * @return void
      */
-    public function test_with_custom_style()
+    public function test_passed_if_with_custom_styling()
     {
         $items = array('Male', 'Female');
 
@@ -118,7 +152,12 @@ class SelectTest extends Testcase
             $parsed[] = compact('value', 'label');
         }
 
-        $expect = '<select name="gender" class="foo-select"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
+        $expect = '<select name="gender"'
+            . ' class="foo-select">'
+            . '<option value="">Please select</option>'
+            . '<option value="0">Male</option>'
+            . '<option value="1">Female</option>'
+            . '</select>';
 
         $el = new Select('gender');
 
@@ -132,11 +171,18 @@ class SelectTest extends Testcase
     /**
      * @return void
      */
-    public function test_with_placeholder()
+    public function test_passed_if_with_placeholder()
     {
-        $items = array(array('value' => 'm', 'label' => 'Male'), array('value' => 'f', 'label' => 'Female'));
+        $items = array(
+            array('value' => 'm', 'label' => 'Male'),
+            array('value' => 'f', 'label' => 'Female'));
 
-        $expect = '<select name="gender" class="form-select"><option value="">Please select sex</option><option value="m">Male</option><option value="f">Female</option></select>';
+        $expect = '<select name="gender"'
+            . ' class="form-select">'
+            . '<option value="">Please select sex</option>'
+            . '<option value="m">Male</option>'
+            . '<option value="f">Female</option>'
+            . '</select>';
 
         $el = new Select('gender');
 
@@ -150,7 +196,7 @@ class SelectTest extends Testcase
     /**
      * @return void
      */
-    public function test_with_simple_array()
+    public function test_passed_if_with_simple_array()
     {
         $items = array('Male', 'Female');
 
@@ -161,24 +207,17 @@ class SelectTest extends Testcase
             $parsed[] = compact('value', 'label');
         }
 
-        $expect = '<select name="gender" class="form-select"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
+        $expect = '<select name="gender"'
+            . ' class="form-select">'
+            . '<option value="">Please select</option>'
+            . '<option value="0">Male</option>'
+            . '<option value="1">Female</option>'
+            . '</select>';
 
         $el = new Select('gender');
 
         $actual = $el->withItems($parsed);
 
         $this->assertEquals($expect, $actual);
-    }
-
-    /**
-     * @return void
-     */
-    public function test_without_alpine()
-    {
-        $this->doExpectException('Exception');
-
-        $el = new Select('gender');
-
-        $el->withItems(array())->asModel();
     }
 }

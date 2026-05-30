@@ -12,7 +12,19 @@ class ElementTest extends Testcase
     /**
      * @return void
      */
-    public function test_disables_on()
+    public function test_failed_if_without_alpine()
+    {
+        $this->doExpectException('Exception');
+
+        $el = new Element;
+
+        $el->disablesOn('loading');
+    }
+
+    /**
+     * @return void
+     */
+    public function test_passed_if_disables_on()
     {
         $expect = ':disabled="loading"';
 
@@ -30,7 +42,7 @@ class ElementTest extends Testcase
     /**
      * @return void
      */
-    public function test_no_style()
+    public function test_passed_if_no_styling()
     {
         $expect = '';
 
@@ -46,7 +58,7 @@ class ElementTest extends Testcase
     /**
      * @return void
      */
-    public function test_no_style_with_class()
+    public function test_passed_if_no_styling_class()
     {
         $expect = 'class="my-class"';
 
@@ -62,7 +74,7 @@ class ElementTest extends Testcase
     /**
      * @return void
      */
-    public function test_with_class()
+    public function test_passed_if_with_class()
     {
         $expect = 'class="my-class"';
 
@@ -78,7 +90,7 @@ class ElementTest extends Testcase
     /**
      * @return void
      */
-    public function test_with_custom_attr()
+    public function test_passed_if_with_custom_attr()
     {
         $expect = 'data-test="value"';
 
@@ -94,7 +106,7 @@ class ElementTest extends Testcase
     /**
      * @return void
      */
-    public function test_with_id()
+    public function test_passed_if_with_id()
     {
         $expect = 'id="my-id"';
 
@@ -105,17 +117,5 @@ class ElementTest extends Testcase
         $actual = $el->getAttrs();
 
         $this->assertEquals($expect, $actual);
-    }
-
-    /**
-     * @return void
-     */
-    public function test_without_alpine()
-    {
-        $this->doExpectException('Exception');
-
-        $el = new Element;
-
-        $el->disablesOn('loading');
     }
 }

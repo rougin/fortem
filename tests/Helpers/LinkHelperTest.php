@@ -14,7 +14,7 @@ class LinkHelperTest extends Testcase
     /**
      * @return void
      */
-    public function test_get_current()
+    public function test_passed_if_current_url()
     {
         $server = $this->newServer();
 
@@ -30,23 +30,7 @@ class LinkHelperTest extends Testcase
     /**
      * @return void
      */
-    public function test_get_name()
-    {
-        $server = $this->newServer();
-
-        $link = new LinkHelper($server);
-
-        $expect = 'url';
-
-        $actual = $link->name();
-
-        $this->assertEquals($expect, $actual);
-    }
-
-    /**
-     * @return void
-     */
-    public function test_is_current()
+    public function test_passed_if_is_active()
     {
         $server = $this->newServer();
 
@@ -64,7 +48,23 @@ class LinkHelperTest extends Testcase
     /**
      * @return void
      */
-    public function test_other_base_url()
+    public function test_passed_if_name()
+    {
+        $server = $this->newServer();
+
+        $link = new LinkHelper($server);
+
+        $expect = 'url';
+
+        $actual = $link->name();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_passed_if_with_base_url()
     {
         $server = $this->newServer();
 
@@ -92,5 +92,4 @@ class LinkHelperTest extends Testcase
 
         return $server;
     }
-
 }

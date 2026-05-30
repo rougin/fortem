@@ -14,9 +14,23 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_as_email()
+    public function test_failed_if_without_alpine()
     {
-        $expect = '<input type="email" name="email" class="form-control">';
+        $this->doExpectException('Exception');
+
+        $el = new Input('name');
+
+        $el->asModel();
+    }
+
+    /**
+     * @return void
+     */
+    public function test_passed_if_as_email()
+    {
+        $expect = '<input type="email"'
+            . ' name="email"'
+            . ' class="form-control">';
 
         $el = new Input('email');
 
@@ -28,9 +42,12 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_as_model()
+    public function test_passed_if_as_model()
     {
-        $expect = '<input type="text" name="name" x-model="name" class="form-control">';
+        $expect = '<input type="text"'
+            . ' name="name"'
+            . ' x-model="name"'
+            . ' class="form-control">';
 
         $el = new Input('name');
 
@@ -44,9 +61,11 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_as_number()
+    public function test_passed_if_as_number()
     {
-        $expect = '<input type="number" name="age" class="form-control">';
+        $expect = '<input type="number"'
+            . ' name="age"'
+            . ' class="form-control">';
 
         $el = new Input('age');
 
@@ -58,9 +77,11 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_can_be_created()
+    public function test_passed_if_created()
     {
-        $expect = '<input type="text" name="name" class="form-control">';
+        $expect = '<input type="text"'
+            . ' name="name"'
+            . ' class="form-control">';
 
         $actual = new Input('name');
 
@@ -70,9 +91,12 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_disables_on()
+    public function test_passed_if_disables_on()
     {
-        $expect = '<input type="text" name="name" :disabled="loading" class="form-control">';
+        $expect = '<input type="text"'
+            . ' name="name"'
+            . ' :disabled="loading"'
+            . ' class="form-control">';
 
         $el = new Input('name');
 
@@ -86,7 +110,7 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_no_style()
+    public function test_passed_if_no_styling()
     {
         $expect = '<input type="text" name="name">';
 
@@ -100,9 +124,11 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_no_style_with_class()
+    public function test_passed_if_no_styling_class()
     {
-        $expect = '<input type="text" name="name" class="is-invalid">';
+        $expect = '<input type="text"'
+            . ' name="name"'
+            . ' class="is-invalid">';
 
         $el = new Input('name');
 
@@ -114,9 +140,11 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_with_class()
+    public function test_passed_if_with_class()
     {
-        $expect = '<input type="text" name="name" class="form-control is-invalid">';
+        $expect = '<input type="text"'
+            . ' name="name"'
+            . ' class="form-control is-invalid">';
 
         $el = new Input('name');
 
@@ -128,26 +156,16 @@ class InputTest extends Testcase
     /**
      * @return void
      */
-    public function test_with_custom_style()
+    public function test_passed_if_with_custom_styling()
     {
-        $expect = '<input type="text" name="name" class="foo-input">';
+        $expect = '<input type="text"'
+            . ' name="name"'
+            . ' class="foo-input">';
 
         $el = new Input('name');
 
         $el->setStyling(new CustomStyle);
 
         $this->assertEquals($expect, $el);
-    }
-
-    /**
-     * @return void
-     */
-    public function test_without_alpine()
-    {
-        $this->doExpectException('Exception');
-
-        $el = new Input('name');
-
-        $el->asModel();
     }
 }

@@ -14,84 +14,84 @@ class StyleTest extends Testcase
     /**
      * @return void
      */
-    public function test_bootstrap_button_class()
+    public function test_passed_if_button()
     {
         $style = new BootstrapStyle;
 
-        $expected = 'btn';
+        $expect = 'btn';
 
         $actual = $style->button();
 
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expect, $actual);
     }
 
     /**
      * @return void
      */
-    public function test_bootstrap_error_class()
+    public function test_passed_if_error()
     {
         $style = new BootstrapStyle;
 
-        $expected = 'text-danger small mb-0';
+        $expect = 'text-danger small mb-0';
 
         $actual = $style->error();
 
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expect, $actual);
     }
 
     /**
      * @return void
      */
-    public function test_bootstrap_input_class()
+    public function test_passed_if_input()
     {
         $style = new BootstrapStyle;
 
-        $expected = 'form-control';
+        $expect = 'form-control';
 
         $actual = $style->input();
 
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expect, $actual);
     }
 
     /**
      * @return void
      */
-    public function test_bootstrap_label_class()
+    public function test_passed_if_label()
     {
         $style = new BootstrapStyle;
 
-        $expected = 'form-label';
+        $expect = 'form-label';
 
         $actual = $style->label();
 
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expect, $actual);
     }
 
     /**
      * @return void
      */
-    public function test_bootstrap_required_class()
+    public function test_passed_if_required()
     {
         $style = new BootstrapStyle;
 
-        $expected = 'text-danger';
+        $expect = 'text-danger';
 
         $actual = $style->required();
 
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expect, $actual);
     }
 
     /**
      * @return void
      */
-    public function test_bootstrap_select_class()
+    public function test_passed_if_select()
     {
         $style = new BootstrapStyle;
 
-        $expected = 'form-select';
+        $expect = 'form-select';
 
         $actual = $style->select();
 
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expect, $actual);
     }
 }

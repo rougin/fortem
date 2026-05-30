@@ -14,7 +14,31 @@ class ButtonTest extends Testcase
     /**
      * @return void
      */
-    public function test_no_style()
+    public function test_failed_if_without_alpine()
+    {
+        $this->doExpectException('Exception');
+
+        $actual = new Button('Submit');
+
+        $actual->onClick('submitForm');
+    }
+
+    /**
+     * @return void
+     */
+    public function test_passed_if_created()
+    {
+        $expect = '<button type="button" class="btn">Submit</button>';
+
+        $actual = new Button('Submit');
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_passed_if_no_styling()
     {
         $expect = '<button type="button">Submit</button>';
 
@@ -28,9 +52,10 @@ class ButtonTest extends Testcase
     /**
      * @return void
      */
-    public function test_no_style_with_class()
+    public function test_passed_if_no_styling_class()
     {
-        $expect = '<button type="button" class="btn-lg">Submit</button>';
+        $expect = '<button type="button" class="btn-lg">'
+            . 'Submit</button>';
 
         $actual = new Button('Submit');
 
@@ -42,9 +67,11 @@ class ButtonTest extends Testcase
     /**
      * @return void
      */
-    public function test_on_click()
+    public function test_passed_if_on_click()
     {
-        $expect = '<button type="button" @click="submitForm" class="btn">Submit</button>';
+        $expect = '<button type="button"'
+            . ' @click="submitForm" class="btn">'
+            . 'Submit</button>';
 
         $actual = new Button('Submit');
 
@@ -58,21 +85,11 @@ class ButtonTest extends Testcase
     /**
      * @return void
      */
-    public function test_simple_button()
+    public function test_passed_if_with_class()
     {
-        $expect = '<button type="button" class="btn">Submit</button>';
-
-        $actual = new Button('Submit');
-
-        $this->assertEquals($expect, $actual);
-    }
-
-    /**
-     * @return void
-     */
-    public function test_with_class()
-    {
-        $expect = '<button type="button" class="btn btn-primary">Submit</button>';
+        $expect = '<button type="button"'
+            . ' class="btn btn-primary">'
+            . 'Submit</button>';
 
         $actual = new Button('Submit');
 
@@ -84,9 +101,10 @@ class ButtonTest extends Testcase
     /**
      * @return void
      */
-    public function test_with_custom_style()
+    public function test_passed_if_with_custom_styling()
     {
-        $expect = '<button type="button" class="foo-btn">Submit</button>';
+        $expect = '<button type="button" class="foo-btn">'
+            . 'Submit</button>';
 
         $actual = new Button('Submit');
 
@@ -98,26 +116,15 @@ class ButtonTest extends Testcase
     /**
      * @return void
      */
-    public function test_with_type()
+    public function test_passed_if_with_type()
     {
-        $expect = '<button type="submit" class="btn">Submit</button>';
+        $expect = '<button type="submit" class="btn">'
+            . 'Submit</button>';
 
         $actual = new Button('Submit');
 
         $actual->withType('submit');
 
         $this->assertEquals($expect, $actual);
-    }
-
-    /**
-     * @return void
-     */
-    public function test_without_alpine()
-    {
-        $this->doExpectException('Exception');
-
-        $actual = new Button('Submit');
-
-        $actual->onClick('submitForm');
     }
 }
