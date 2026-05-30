@@ -2,6 +2,8 @@
 
 namespace Rougin\Fortem;
 
+use Rougin\Fortem\Styles\BootstrapStyle;
+
 /**
  * @package Fortem
  *
@@ -18,6 +20,16 @@ class Element
      * @var array<string, string>
      */
     protected $attrs = array();
+
+    /**
+     * @var boolean
+     */
+    protected $noStyling = false;
+
+    /**
+     * @var \Rougin\Fortem\StyleInterface|null
+     */
+    protected $styling = null;
 
     /**
      * @param string $name
@@ -39,6 +51,20 @@ class Element
      */
     public function getAttrs()
     {
+        $default = $this->getDefaultClass();
+
+        if (! $this->noStyling && $default !== '')
+        {
+            if (array_key_exists('class', $this->attrs))
+            {
+                $this->attrs['class'] = $default . ' ' . $this->attrs['class'];
+            }
+            else
+            {
+                $this->attrs['class'] = $default;
+            }
+        }
+
         $items = array();
 
         foreach ($this->attrs as $key => $value)
@@ -47,6 +73,49 @@ class Element
         }
 
         return implode(' ', $items);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultClass()
+    {
+        return '';
+    }
+
+    /**
+     * @return \Rougin\Fortem\StyleInterface
+     */
+    public function getStyling()
+    {
+        if ($this->styling instanceof StyleInterface)
+        {
+            return $this->styling;
+        }
+
+        return new BootstrapStyle;
+    }
+
+    /**
+     * @return static
+     */
+    public function noStyling()
+    {
+        $this->noStyling = true;
+
+        return $this;
+    }
+
+    /**
+     * @param \Rougin\Fortem\StyleInterface $styling
+     *
+     * @return static
+     */
+    public function setStyling(StyleInterface $styling)
+    {
+        $this->styling = $styling;
+
+        return $this;
     }
 
     /**

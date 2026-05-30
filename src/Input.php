@@ -38,14 +38,6 @@ class Input extends Element
     /**
      * @return self
      */
-    public function asNumber()
-    {
-        return $this->withType('number');
-    }
-
-    /**
-     * @return self
-     */
     public function asModel()
     {
         if (! $this->alpine)
@@ -56,6 +48,22 @@ class Input extends Element
         $name = $this->attrs['name'];
 
         return $this->with('x-model', $name);
+    }
+
+    /**
+     * @return self
+     */
+    public function asNumber()
+    {
+        return $this->withType('number');
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultClass()
+    {
+        return $this->getStyling()->input();
     }
 
     /**

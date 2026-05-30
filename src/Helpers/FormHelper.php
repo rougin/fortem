@@ -26,7 +26,7 @@ class FormHelper implements HelperInterface
     /**
      * @var \Rougin\Fortem\StyleInterface|null
      */
-    protected $style = null;
+    protected $styling = null;
 
     /**
      * @param string $text
@@ -38,6 +38,11 @@ class FormHelper implements HelperInterface
         $elem = new Button($text);
 
         $elem->withAlpine($this->alpine);
+
+        if ($this->styling instanceof StyleInterface)
+        {
+            $elem->setStyling($this->styling);
+        }
 
         return $elem;
     }
@@ -57,9 +62,9 @@ class FormHelper implements HelperInterface
 
         $elem = new Error($field, $first);
 
-        if ($this->style instanceof StyleInterface)
+        if ($this->styling instanceof StyleInterface)
         {
-            $elem->setStyle($this->style);
+            $elem->setStyling($this->styling);
         }
 
         return $elem;
@@ -76,6 +81,11 @@ class FormHelper implements HelperInterface
 
         $elem->withAlpine($this->alpine);
 
+        if ($this->styling instanceof StyleInterface)
+        {
+            $elem->setStyling($this->styling);
+        }
+
         return $elem;
     }
 
@@ -88,9 +98,9 @@ class FormHelper implements HelperInterface
     {
         $elem = new Label($text);
 
-        if ($this->style instanceof StyleInterface)
+        if ($this->styling instanceof StyleInterface)
         {
-            $elem->setStyle($this->style);
+            $elem->setStyling($this->styling);
         }
 
         return $elem;
@@ -143,6 +153,11 @@ class FormHelper implements HelperInterface
 
         $elem->withAlpine($this->alpine);
 
+        if ($this->styling instanceof StyleInterface)
+        {
+            $elem->setStyling($this->styling);
+        }
+
         $parsed = array();
 
         foreach ($items as $index => $item)
@@ -165,13 +180,13 @@ class FormHelper implements HelperInterface
     }
 
     /**
-     * @param \Rougin\Fortem\StyleInterface $style
+     * @param \Rougin\Fortem\StyleInterface $styling
      *
      * @return self
      */
-    public function useStyle(StyleInterface $style)
+    public function useStyling(StyleInterface $styling)
     {
-        $this->style = $style;
+        $this->styling = $styling;
 
         return $this;
     }

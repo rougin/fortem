@@ -45,7 +45,7 @@ echo $form->label('Name');
 ```
 
 ``` html
-<label>Name</label>
+<label class="form-label">Name</label>
 ```
 
 > [!NOTE]
@@ -87,24 +87,34 @@ echo $link; // http://roug.in/
 
 ## Labels
 
-To create a `<label>` element, the `label` method is used:
+To create a `<label>` element, the `label` method is used. By default, it includes Bootstrap 5 styling:
 
 ``` php
 echo $form->label('Name');
 ```
 
 ``` html
-<label>Name</label>
+<label class="form-label">Name</label>
 ```
 
-The `class` attribute can be specified using `withClass`:
+Additional CSS classes can be appended using `withClass`:
 
 ``` php
-echo $form->label('Name')->withClass('form-label');
+echo $form->label('Name')->withClass('text-uppercase');
 ```
 
 ``` html
-<label class="form-label">Name</label>
+<label class="form-label text-uppercase">Name</label>
+```
+
+To remove the default styling, use the `noStyling` method:
+
+``` php
+echo $form->label('Name')->noStyling();
+```
+
+``` html
+<label>Name</label>
 ```
 
 A label can also be marked as required, which adds a red asterisk:
@@ -114,29 +124,29 @@ echo $form->label('Name')->asRequired();
 ```
 
 ``` html
-<label>Name <span class="text-danger">*</span></label>
+<label class="form-label">Name <span class="text-danger">*</span></label>
 ```
 
 ## Inputs
 
-To create an `<input>` element, the `input` method is used. By default, it creates a `text` input:
+To create an `<input>` element, the `input` method is used. By default, it creates a `text` input with Bootstrap 5 styling:
 
 ``` php
 echo $form->input('name');
 ```
 
 ``` html
-<input type="text" name="name">
+<input type="text" name="name" class="form-control">
 ```
 
-Same from `label`, use `withClass` for the `class` attribute:
+Additional CSS classes can be appended using `withClass`:
 
 ``` php
-echo $form->input('name')->withClass('form-control');
+echo $form->input('name')->withClass('is-invalid');
 ```
 
 ``` html
-<input type="text" name="name" class="form-control">
+<input type="text" name="name" class="form-control is-invalid">
 ```
 
 The input type can be changed using the `withType` method or the convenient `asEmail` and `asNumber` methods:
@@ -146,7 +156,7 @@ echo $form->input('email')->asEmail();
 ```
 
 ``` html
-<input type="email" name="email">
+<input type="email" name="email" class="form-control">
 ```
 
 ``` php
@@ -154,25 +164,25 @@ echo $form->input('age')->asNumber();
 ```
 
 ``` html
-<input type="number" name="age">
+<input type="number" name="age" class="form-control">
 ```
 
 ## Buttons
 
-To create a `<button>` element, the `button` method is used:
+To create a `<button>` element, the `button` method is used. By default, it includes Bootstrap 5 styling:
 
 ``` php
 echo $form->button('Submit');
 ```
 
 ``` html
-<button type="button">Submit</button>
+<button type="button" class="btn">Submit</button>
 ```
 
-Use `withClass` method for specifying its `class` attribute:
+Additional CSS classes can be appended using `withClass`:
 
 ``` php
-echo $form->button('Submit')->withClass('btn btn-primary');
+echo $form->button('Submit')->withClass('btn-primary');
 ```
 
 ``` html
@@ -186,12 +196,12 @@ echo $form->button('Submit')->withType('submit');
 ```
 
 ``` html
-<button type="submit">Submit</button>
+<button type="submit" class="btn">Submit</button>
 ```
 
 ## Select dropdowns
 
-To create a `<select>` element, the `select` method is used. An array of items can be passed to populate the options:
+To create a `<select>` element, the `select` method is used. By default, it includes Bootstrap 5 styling:
 
 ``` php
 $items = array('Male', 'Female');
@@ -200,7 +210,7 @@ echo $form->select('gender', $items);
 ```
 
 ``` html
-<select name="gender">
+<select name="gender" class="form-select">
   <option value="">Please select</option>
   <option value="0">Male</option>
   <option value="1">Female</option>
@@ -303,7 +313,7 @@ echo $form->script('data')
 
 ## Restyling elements
 
-The default styling uses Bootstrap 5 classes. To use a different CSS framework, implement the `StyleInterface` and pass it to a label or error component:
+The default styling uses Bootstrap 5 classes. To use a different CSS framework, implement the `StyleInterface` and pass it to the form helper:
 
 ``` php
 namespace Rougin\Test\Styles;
@@ -312,14 +322,34 @@ use Rougin\Fortem\StyleInterface;
 
 class TailwindStyle implements StyleInterface
 {
+    public function button()
+    {
+        return 'rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500';
+    }
+
     public function error()
     {
-        return 'text-red-600 text-sm mt-1';
+        return 'mt-1 text-sm text-red-600';
+    }
+
+    public function input()
+    {
+        return 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm';
+    }
+
+    public function label()
+    {
+        return 'block text-sm font-medium leading-6 text-gray-900';
     }
 
     public function required()
     {
         return 'text-red-500';
+    }
+
+    public function select()
+    {
+        return 'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 sm:text-sm';
     }
 }
 ```
@@ -331,13 +361,20 @@ use Rougin\Test\Styles\TailwindStyle;
 $form = new FormHelper;
 
 // Apply the custom style to all elements ---
-$form->useStyle(new TailwindStyle);
+$form->useStyling(new TailwindStyle);
 // ------------------------------------------
 
-// Labels and errors now use the custom style ---
+// All elements now use the custom style ---
 $form->label('Name')->asRequired();
+$form->input('name');
+$form->button('Submit')->withClass('btn-primary');
+$form->select('gender', array('Male', 'Female'));
 $form->error('error.name');
-// ----------------------------------------------
+// -----------------------------------------
+
+// Opt out the default styling per element ---
+$form->input('name')->noStyling();
+// -------------------------------------------
 ```
 
 ## Changelog

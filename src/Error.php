@@ -26,7 +26,7 @@ class Error
     /**
      * @var \Rougin\Fortem\StyleInterface|null
      */
-    protected $style = null;
+    protected $styling = null;
 
     /**
      * @param string  $field
@@ -53,7 +53,7 @@ class Error
             $field = $this->field . '[0]';
         }
 
-        $class = $this->getStyle()->error();
+        $class = $this->getStyling()->error();
 
         $html .= '<p class="' . $class . '" x-text="' . $field . '"></p>';
 
@@ -63,24 +63,24 @@ class Error
     /**
      * @return \Rougin\Fortem\StyleInterface
      */
-    public function getStyle()
+    public function getStyling()
     {
-        if ($this->style instanceof StyleInterface)
+        if ($this->styling instanceof StyleInterface)
         {
-            return $this->style;
+            return $this->styling;
         }
 
         return new BootstrapStyle;
     }
 
     /**
-     * @param \Rougin\Fortem\StyleInterface $style
+     * @param \Rougin\Fortem\StyleInterface $styling
      *
      * @return self
      */
-    public function setStyle(StyleInterface $style)
+    public function setStyling(StyleInterface $styling)
     {
-        $this->style = $style;
+        $this->styling = $styling;
 
         return $this;
     }

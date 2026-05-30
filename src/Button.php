@@ -33,6 +33,14 @@ class Button extends Element
     }
 
     /**
+     * @return string
+     */
+    public function getDefaultClass()
+    {
+        return $this->getStyling()->button();
+    }
+
+    /**
      * @param string $name
      *
      * @return self

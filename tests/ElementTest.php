@@ -30,6 +30,38 @@ class ElementTest extends Testcase
     /**
      * @return void
      */
+    public function test_no_style()
+    {
+        $expect = '';
+
+        $el = new Element;
+
+        $el->noStyling();
+
+        $actual = $el->getAttrs();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_no_style_with_class()
+    {
+        $expect = 'class="my-class"';
+
+        $el = new Element;
+
+        $el->noStyling()->withClass('my-class');
+
+        $actual = $el->getAttrs();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
     public function test_with_class()
     {
         $expect = 'class="my-class"';

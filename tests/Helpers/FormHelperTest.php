@@ -2,6 +2,7 @@
 
 namespace Rougin\Fortem\Helpers;
 
+use Rougin\Fortem\Fixture\CustomStyle;
 use Rougin\Fortem\Testcase;
 
 /**
@@ -18,7 +19,7 @@ class FormHelperTest extends Testcase
     {
         $form = new FormHelper;
 
-        $expect = '<button type="button">Submit</button>';
+        $expect = '<button type="button" class="btn">Submit</button>';
 
         $actual = $form->button('Submit');
 
@@ -28,7 +29,7 @@ class FormHelperTest extends Testcase
 
         $actual = $form->button('Submit');
 
-        $actual->withClass('btn btn-primary');
+        $actual->withClass('btn-primary');
 
         $this->assertEquals($expect, $actual);
     }
@@ -68,17 +69,17 @@ class FormHelperTest extends Testcase
     {
         $form = new FormHelper;
 
-        $expect = '<input type="text" name="name">';
+        $expect = '<input type="text" name="name" class="form-control">';
 
         $actual = $form->input('name');
 
         $this->assertEquals($expect, $actual);
 
-        $expect = '<input type="text" name="name" class="form-control">';
+        $expect = '<input type="text" name="name" class="form-control is-invalid">';
 
         $actual = $form->input('name');
 
-        $actual->withClass('form-control');
+        $actual->withClass('is-invalid');
 
         $this->assertEquals($expect, $actual);
     }
@@ -88,7 +89,7 @@ class FormHelperTest extends Testcase
      */
     public function test_label()
     {
-        $expect = '<label>Name</label>';
+        $expect = '<label class="form-label">Name</label>';
 
         $form = new FormHelper;
 
@@ -96,11 +97,11 @@ class FormHelperTest extends Testcase
 
         $this->assertEquals($expect, $actual);
 
-        $expect = '<label class="form-label">Name</label>';
+        $expect = '<label class="form-label text-uppercase">Name</label>';
 
         $actual = $form->label('Name');
 
-        $actual->withClass('form-label');
+        $actual->withClass('text-uppercase');
 
         $this->assertEquals($expect, $actual);
     }
@@ -115,6 +116,22 @@ class FormHelperTest extends Testcase
         $expect = 'form';
 
         $actual = $form->name();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_no_style_per_element()
+    {
+        $form = new FormHelper;
+
+        $form->useStyling(new CustomStyle);
+
+        $expect = '<label>Name</label>';
+
+        $actual = $form->label('Name')->noStyling();
 
         $this->assertEquals($expect, $actual);
     }
@@ -154,7 +171,7 @@ class FormHelperTest extends Testcase
      */
     public function test_select()
     {
-        $expect = '<select name="gender"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
+        $expect = '<select name="gender" class="form-select"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
 
         $form = new FormHelper;
 
@@ -168,7 +185,7 @@ class FormHelperTest extends Testcase
         $items[] = array('value' => 'm', 'label' => 'Male');
         $items[] = array('value' => 'f', 'label' => 'Female');
 
-        $expect = '<select name="gender"><option value="">Please select</option><option value="m">Male</option><option value="f">Female</option></select>';
+        $expect = '<select name="gender" class="form-select"><option value="">Please select</option><option value="m">Male</option><option value="f">Female</option></select>';
 
         $actual = $form->select('gender', $items);
 
@@ -180,7 +197,7 @@ class FormHelperTest extends Testcase
      */
     public function test_select_with_class()
     {
-        $expect = '<select name="gender" class="form-select"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
+        $expect = '<select name="gender" class="form-select is-invalid"><option value="">Please select</option><option value="0">Male</option><option value="1">Female</option></select>';
 
         $form = new FormHelper;
 
@@ -188,7 +205,35 @@ class FormHelperTest extends Testcase
 
         $actual = $form->select('gender', $items);
 
-        $actual->withClass('form-select');
+        $actual->withClass('is-invalid');
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_use_style()
+    {
+        $form = new FormHelper;
+
+        $form->useStyling(new CustomStyle);
+
+        $expect = '<input type="text" name="name" class="foo-input">';
+
+        $actual = $form->input('name');
+
+        $this->assertEquals($expect, $actual);
+
+        $expect = '<button type="button" class="foo-btn">Submit</button>';
+
+        $actual = $form->button('Submit');
+
+        $this->assertEquals($expect, $actual);
+
+        $expect = '<label class="foo-label">Name</label>';
+
+        $actual = $form->label('Name');
 
         $this->assertEquals($expect, $actual);
     }

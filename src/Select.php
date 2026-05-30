@@ -62,6 +62,14 @@ class Select extends Element
     }
 
     /**
+     * @return string
+     */
+    public function getDefaultClass()
+    {
+        return $this->getStyling()->select();
+    }
+
+    /**
      * @param mixed[] $items
      *
      * @return self

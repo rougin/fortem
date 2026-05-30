@@ -1,6 +1,6 @@
 <?php
 
-namespace Rougin\Fortem\Styles;
+namespace Rougin\Fortem\Fixture;
 
 use Rougin\Fortem\StyleInterface;
 
@@ -9,14 +9,14 @@ use Rougin\Fortem\StyleInterface;
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
-class BootstrapStyle implements StyleInterface
+class CustomStyle implements StyleInterface
 {
     /**
      * @return string
      */
     public function button()
     {
-        return 'btn';
+        return 'foo-btn';
     }
 
     /**
@@ -24,7 +24,7 @@ class BootstrapStyle implements StyleInterface
      */
     public function error()
     {
-        return 'text-danger small mb-0';
+        return 'foo-error';
     }
 
     /**
@@ -32,7 +32,7 @@ class BootstrapStyle implements StyleInterface
      */
     public function input()
     {
-        return 'form-control';
+        return 'foo-input';
     }
 
     /**
@@ -40,7 +40,7 @@ class BootstrapStyle implements StyleInterface
      */
     public function label()
     {
-        return 'form-label';
+        return 'foo-label';
     }
 
     /**
@@ -48,7 +48,7 @@ class BootstrapStyle implements StyleInterface
      */
     public function required()
     {
-        return 'text-danger';
+        return 'foo-required';
     }
 
     /**
@@ -56,6 +56,6 @@ class BootstrapStyle implements StyleInterface
      */
     public function select()
     {
-        return 'form-select';
+        return 'foo-select';
     }
 }
