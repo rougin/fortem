@@ -2,6 +2,8 @@
 
 namespace Rougin\Fortem;
 
+use Rougin\Fortem\Styles\BootstrapStyle;
+
 /**
  * @package Fortem
  *
@@ -13,6 +15,11 @@ class Label extends Element
      * @var boolean
      */
     protected $required = false;
+
+    /**
+     * @var \Rougin\Fortem\StyleInterface|null
+     */
+    protected $style = null;
 
     /**
      * @var string
@@ -36,9 +43,7 @@ class Label extends Element
 
         $text = $this->text;
 
-        // TODO: Use "StyleInterface" ---
-        $class = 'text-danger';
-        // ------------------------------
+        $class = $this->getStyle()->required();
 
         if ($this->required)
         {
@@ -68,6 +73,31 @@ class Label extends Element
     public function forField($name)
     {
         return $this->with('for', $name);
+    }
+
+    /**
+     * @return \Rougin\Fortem\StyleInterface
+     */
+    public function getStyle()
+    {
+        if ($this->style instanceof StyleInterface)
+        {
+            return $this->style;
+        }
+
+        return new BootstrapStyle;
+    }
+
+    /**
+     * @param \Rougin\Fortem\StyleInterface $style
+     *
+     * @return self
+     */
+    public function setStyle(StyleInterface $style)
+    {
+        $this->style = $style;
+
+        return $this;
     }
 
     /**

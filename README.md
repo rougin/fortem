@@ -301,6 +301,45 @@ echo $form->script('data')
 </script>
 ```
 
+## Restyling elements
+
+The default styling uses Bootstrap 5 classes. To use a different CSS framework, implement the `StyleInterface` and pass it to a label or error component:
+
+``` php
+namespace Rougin\Test\Styles;
+
+use Rougin\Fortem\StyleInterface;
+
+class TailwindStyle implements StyleInterface
+{
+    public function error()
+    {
+        return 'text-red-600 text-sm mt-1';
+    }
+
+    public function required()
+    {
+        return 'text-red-500';
+    }
+}
+```
+
+``` php
+use Rougin\Fortem\Helpers\FormHelper;
+use Rougin\Test\Styles\TailwindStyle;
+
+$form = new FormHelper;
+
+// Apply the custom style to all elements ---
+$form->useStyle(new TailwindStyle);
+// ------------------------------------------
+
+// Labels and errors now use the custom style ---
+$form->label('Name')->asRequired();
+$form->error('error.name');
+// ----------------------------------------------
+```
+
 ## Changelog
 
 Please see [CHANGELOG][link-changelog] for more recent changes.

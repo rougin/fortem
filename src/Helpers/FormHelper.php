@@ -8,6 +8,7 @@ use Rougin\Fortem\Input;
 use Rougin\Fortem\Label;
 use Rougin\Fortem\Script;
 use Rougin\Fortem\Select;
+use Rougin\Fortem\StyleInterface;
 use Staticka\Helper\HelperInterface;
 
 /**
@@ -21,6 +22,11 @@ class FormHelper implements HelperInterface
      * @var boolean
      */
     protected $alpine = false;
+
+    /**
+     * @var \Rougin\Fortem\StyleInterface|null
+     */
+    protected $style = null;
 
     /**
      * @param string $text
@@ -49,7 +55,14 @@ class FormHelper implements HelperInterface
             throw new \Exception('"alpinejs" disabled');
         }
 
-        return new Error($field, $first);
+        $elem = new Error($field, $first);
+
+        if ($this->style instanceof StyleInterface)
+        {
+            $elem->setStyle($this->style);
+        }
+
+        return $elem;
     }
 
     /**
@@ -73,7 +86,14 @@ class FormHelper implements HelperInterface
      */
     public function label($text)
     {
-        return new Label($text);
+        $elem = new Label($text);
+
+        if ($this->style instanceof StyleInterface)
+        {
+            $elem->setStyle($this->style);
+        }
+
+        return $elem;
     }
 
     /**
@@ -142,6 +162,18 @@ class FormHelper implements HelperInterface
         }
 
         return $elem->withItems($parsed);
+    }
+
+    /**
+     * @param \Rougin\Fortem\StyleInterface $style
+     *
+     * @return self
+     */
+    public function useStyle(StyleInterface $style)
+    {
+        $this->style = $style;
+
+        return $this;
     }
 
     /**
