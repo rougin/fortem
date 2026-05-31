@@ -2,7 +2,7 @@
 
 All notable changes to `Fortem` will be documented in this file.
 
-## 0.2.0 - Unreleased
+## 0.2.0 - 2026-05-31
 
 ### Added
 - `StyleInterface` (with `BootstrapStyle` as default)
