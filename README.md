@@ -382,7 +382,7 @@ $form->input('name')->noStyling();
 
 ## Changelog
 
-Please see [CHANGELOG][link-changelog] for more recent changes.
+Please see [CHANGELOG][link-changelog] for recent changes and latest updates.
 
 ## Contributing
 
