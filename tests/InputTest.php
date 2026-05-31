@@ -46,8 +46,8 @@ class InputTest extends Testcase
     {
         $expect = '<input type="text"'
             . ' name="name"'
-            . ' x-model="name"'
-            . ' class="form-control">';
+            . ' class="form-control"'
+            . ' x-model="name">';
 
         $el = new Input('name');
 
@@ -95,8 +95,8 @@ class InputTest extends Testcase
     {
         $expect = '<input type="text"'
             . ' name="name"'
-            . ' :disabled="loading"'
-            . ' class="form-control">';
+            . ' class="form-control"'
+            . ' :disabled="loading">';
 
         $el = new Input('name');
 

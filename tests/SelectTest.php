@@ -38,8 +38,8 @@ class SelectTest extends Testcase
         }
 
         $expect = '<select name="gender"'
-            . ' x-model="gender"'
-            . ' class="form-select">'
+            . ' class="form-select"'
+            . ' x-model="gender">'
             . '<option value="">Please select</option>'
             . '<option value="0">Male</option>'
             . '<option value="1">Female</option>'

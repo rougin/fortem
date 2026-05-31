@@ -70,7 +70,7 @@ class ButtonTest extends Testcase
     public function test_passed_if_on_click()
     {
         $expect = '<button type="button"'
-            . ' @click="submitForm" class="btn">'
+            . ' class="btn" @click="submitForm">'
             . 'Submit</button>';
 
         $actual = new Button('Submit');

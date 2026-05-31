@@ -53,26 +53,23 @@ class Element
     {
         $default = $this->getDefaultClass();
 
-        if (! $this->noStyling && $default !== '')
+        if ($this->noStyling || $default === '')
         {
-            if (array_key_exists('class', $this->attrs))
-            {
-                $this->attrs['class'] = $default . ' ' . $this->attrs['class'];
-            }
-            else
-            {
-                $this->attrs['class'] = $default;
-            }
+            return $this->buildAttrs();
         }
 
-        $items = array();
-
-        foreach ($this->attrs as $key => $value)
+        if (array_key_exists('class', $this->attrs))
         {
-            $items[] = $key . '="' . $value . '"';
+            $default .= ' ' . $this->attrs['class'];
+
+            $this->attrs['class'] = $default;
+
+            return $this->buildAttrs();
         }
 
-        return implode(' ', $items);
+        $this->pushClass($default);
+
+        return $this->buildAttrs();
     }
 
     /**
@@ -161,5 +158,71 @@ class Element
     public function withId($id)
     {
         return $this->with('id', $id);
+    }
+
+    /**
+     * @return string
+     */
+    protected function buildAttrs()
+    {
+        $items = array();
+
+        foreach ($this->attrs as $key => $value)
+        {
+            $items[] = $key . '="' . $value . '"';
+        }
+
+        return implode(' ', $items);
+    }
+
+    /**
+     * @return string|null
+     */
+    protected function getClassAnchor()
+    {
+        if (array_key_exists('name', $this->attrs))
+        {
+            return 'name';
+        }
+
+        if (array_key_exists('type', $this->attrs))
+        {
+            return 'type';
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $default
+     *
+     * @return void
+     */
+    protected function pushClass($default)
+    {
+        $anchor = $this->getClassAnchor();
+
+        $result = array();
+
+        $inserted = false;
+
+        foreach ($this->attrs as $key => $value)
+        {
+            $result[$key] = $value;
+
+            if ($key === $anchor)
+            {
+                $result['class'] = $default;
+
+                $inserted = true;
+            }
+        }
+
+        if (! $inserted)
+        {
+            $result['class'] = $default;
+        }
+
+        $this->attrs = $result;
     }
 }
