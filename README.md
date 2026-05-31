@@ -32,6 +32,9 @@ $ composer require rougin/fortem
 
 ## Basic usage
 
+> [!NOTE]
+> All elements below use [Bootstrap](https://getbootstrap.com/) classes by default. Use the `noStyling` method to opt out, or see [Restyling elements](#restyling-elements) to apply a custom CSS framework.
+
 The `FormHelper` class provides an interface for creating labels, inputs, buttons, select dropdowns, and error messages:
 
 ``` php
@@ -87,7 +90,7 @@ echo $link; // http://roug.in/
 
 ## Labels
 
-To create a `<label>` element, the `label` method is used. By default, it includes Bootstrap 5 styling:
+To create a `<label>` element, the `label` method is used:
 
 ``` php
 echo $form->label('Name');
@@ -129,7 +132,7 @@ echo $form->label('Name')->asRequired();
 
 ## Inputs
 
-To create an `<input>` element, the `input` method is used. By default, it creates a `text` input with Bootstrap 5 styling:
+To create an `<input>` element, the `input` method is used. By default, it creates a `text` input:
 
 ``` php
 echo $form->input('name');
@@ -169,7 +172,7 @@ echo $form->input('age')->asNumber();
 
 ## Buttons
 
-To create a `<button>` element, the `button` method is used. By default, it includes Bootstrap 5 styling:
+To create a `<button>` element, the `button` method is used:
 
 ``` php
 echo $form->button('Submit');
@@ -201,7 +204,7 @@ echo $form->button('Submit')->withType('submit');
 
 ## Select dropdowns
 
-To create a `<select>` element, the `select` method is used. By default, it includes Bootstrap 5 styling:
+To create a `<select>` element, the `select` method is used:
 
 ``` php
 $items = array('Male', 'Female');
