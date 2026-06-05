@@ -2,14 +2,12 @@
 
 namespace Rougin\Fortem\Helpers;
 
-use Staticka\Helper\HelperInterface;
-
 /**
  * @package Fortem
  *
  * @author Rougin Gutib <rougingutib@gmail.com>
  */
-class LinkHelper implements HelperInterface
+class LinkHelper
 {
     /**
      * @var string|null

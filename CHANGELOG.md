@@ -2,6 +2,11 @@
 
 All notable changes to `Fortem` will be documented in this file.
 
+## 0.2.1 - 2026-06-05
+
+### Removed
+- `staticka/staticka` package
+
 ## 0.2.0 - 2026-05-31
 
 ### Added
