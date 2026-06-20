@@ -9,6 +9,7 @@ use Rougin\Fortem\Label;
 use Rougin\Fortem\Script;
 use Rougin\Fortem\Select;
 use Rougin\Fortem\StyleInterface;
+use Rougin\Fortem\Textarea;
 
 /**
  * @package Fortem
@@ -176,6 +177,25 @@ class FormHelper
         }
 
         return $elem->withItems($parsed);
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return \Rougin\Fortem\Textarea
+     */
+    public function textarea($name)
+    {
+        $elem = new Textarea($name);
+
+        $elem->withAlpine($this->alpine);
+
+        if ($this->styling instanceof StyleInterface)
+        {
+            $elem->setStyling($this->styling);
+        }
+
+        return $elem;
     }
 
     /**

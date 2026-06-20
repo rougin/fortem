@@ -35,7 +35,7 @@ $ composer require rougin/fortem
 > [!NOTE]
 > All elements below use [Bootstrap](https://getbootstrap.com/) classes by default. Use the `noStyling` method to opt out, or see [Restyling elements](#restyling-elements) to apply a custom CSS framework.
 
-The `FormHelper` class provides an interface for creating labels, inputs, buttons, select dropdowns, and error messages:
+The `FormHelper` class provides an interface for creating labels, inputs, textareas, buttons, select dropdowns, and error messages:
 
 ``` php
 // index.php
@@ -168,6 +168,58 @@ echo $form->input('age')->asNumber();
 
 ``` html
 <input type="number" name="age" class="form-control">
+```
+
+## Textareas
+
+To create a `<textarea>` element, the `textarea` method is used:
+
+``` php
+echo $form->textarea('message');
+```
+
+``` html
+<textarea name="message" class="form-control"></textarea>
+```
+
+Additional CSS classes can be appended using `withClass`:
+
+``` php
+echo $form->textarea('message')->withClass('is-invalid');
+```
+
+``` html
+<textarea name="message" class="form-control is-invalid"></textarea>
+```
+
+To remove the default styling, use the `noStyling` method:
+
+``` php
+echo $form->textarea('message')->noStyling();
+```
+
+``` html
+<textarea name="message"></textarea>
+```
+
+A textarea supports Alpine.js integration with the `asModel` and `disablesOn` methods:
+
+``` php
+$form->withAlpine();
+
+echo $form->textarea('message')->asModel();
+```
+
+``` html
+<textarea name="message" x-model="message"></textarea>
+```
+
+``` php
+echo $form->textarea('message')->disablesOn('loading');
+```
+
+``` html
+<textarea name="message" :disabled="loading"></textarea>
 ```
 
 ## Buttons

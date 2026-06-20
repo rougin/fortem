@@ -1,0 +1,60 @@
+<?php
+
+namespace Rougin\Fortem;
+
+/**
+ * @package Fortem
+ *
+ * @author Rougin Gutib <rougingutib@gmail.com>
+ */
+class Textarea extends Element
+{
+    /**
+     * @param string $name
+     */
+    public function __construct($name)
+    {
+        $this->withName($name);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return '<textarea ' . $this->getAttrs() . '></textarea>';
+    }
+
+    /**
+     * @return self
+     */
+    public function asModel()
+    {
+        if (! $this->alpine)
+        {
+            throw new \Exception('"alpinejs" disabled');
+        }
+
+        $name = $this->attrs['name'];
+
+        return $this->with('x-model', $name);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultClass()
+    {
+        return $this->getStyling()->input();
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return self
+     */
+    public function withName($name)
+    {
+        return $this->with('name', $name);
+    }
+}

@@ -2,6 +2,11 @@
 
 All notable changes to `Fortem` will be documented in this file.
 
+## 0.2.2 - 2026-06-21
+
+### Added
+- `textarea` in `FormHelper`
+
 ## 0.2.1 - 2026-06-05
 
 ### Removed

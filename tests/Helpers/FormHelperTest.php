@@ -285,6 +285,30 @@ class FormHelperTest extends Testcase
     /**
      * @return void
      */
+    public function test_passed_if_textarea()
+    {
+        $form = new FormHelper;
+
+        $expect = '<textarea name="message"'
+            . ' class="form-control"></textarea>';
+
+        $actual = $form->textarea('message');
+
+        $this->assertEquals($expect, $actual);
+
+        $expect = '<textarea name="message"'
+            . ' class="form-control is-invalid"></textarea>';
+
+        $actual = $form->textarea('message');
+
+        $actual->withClass('is-invalid');
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
     public function test_passed_if_use_styling()
     {
         $form = new FormHelper;
@@ -310,6 +334,13 @@ class FormHelperTest extends Testcase
             . 'Name</label>';
 
         $actual = $form->label('Name');
+
+        $this->assertEquals($expect, $actual);
+
+        $expect = '<textarea name="message"'
+            . ' class="foo-input"></textarea>';
+
+        $actual = $form->textarea('message');
 
         $this->assertEquals($expect, $actual);
     }
