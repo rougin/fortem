@@ -26,6 +26,21 @@ class ButtonTest extends Testcase
     /**
      * @return void
      */
+    public function test_passed_if_as_submit()
+    {
+        $expect = '<button type="submit" class="btn">'
+            . 'Submit</button>';
+
+        $actual = new Button('Submit');
+
+        $actual->asSubmit();
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
     public function test_passed_if_created()
     {
         $expect = '<button type="button" class="btn">Submit</button>';
@@ -109,6 +124,23 @@ class ButtonTest extends Testcase
         $actual = new Button('Submit');
 
         $actual->setStyling(new CustomStyle);
+
+        $this->assertEquals($expect, $actual);
+    }
+
+    /**
+     * @return void
+     */
+    public function test_passed_if_with_icon()
+    {
+        $expect = '<button type="button"'
+            . ' class="btn">'
+            . '<i class="fa fa-save"></i> '
+            . 'Save</button>';
+
+        $actual = new Button('Save');
+
+        $actual->withIcon('fa fa-save');
 
         $this->assertEquals($expect, $actual);
     }

@@ -254,6 +254,26 @@ echo $form->button('Submit')->withType('submit');
 <button type="submit" class="btn">Submit</button>
 ```
 
+The `asSubmit` method is a shorthand for `withType('submit')`:
+
+``` php
+echo $form->button('Submit')->asSubmit();
+```
+
+``` html
+<button type="submit" class="btn">Submit</button>
+```
+
+An icon can be prepended to the button text using `withIcon`. The value is wrapped in an `<i>` tag:
+
+``` php
+echo $form->button('Save')->withIcon('fa fa-save');
+```
+
+``` html
+<button type="button" class="btn"><i class="fa fa-save"></i> Save</button>
+```
+
 ## Select dropdowns
 
 To create a `<select>` element, the `select` method is used:

@@ -12,6 +12,11 @@ class Button extends Element
     /**
      * @var string
      */
+    protected $icon = '';
+
+    /**
+     * @var string
+     */
     protected $text;
 
     /**
@@ -29,7 +34,17 @@ class Button extends Element
      */
     public function __toString()
     {
-        return '<button ' . $this->getAttrs() . '>' . $this->text . '</button>';
+        $icon = $this->icon ? $this->icon . ' ' : '';
+
+        return '<button ' . $this->getAttrs() . '>' . $icon . $this->text . '</button>';
+    }
+
+    /**
+     * @return self
+     */
+    public function asSubmit()
+    {
+        return $this->withType('submit');
     }
 
     /**
@@ -53,6 +68,18 @@ class Button extends Element
         }
 
         return $this->with('@click', $name);
+    }
+
+    /**
+     * @param string $icon
+     *
+     * @return self
+     */
+    public function withIcon($icon)
+    {
+        $this->icon = '<i class="' . $icon . '"></i>';
+
+        return $this;
     }
 
     /**
